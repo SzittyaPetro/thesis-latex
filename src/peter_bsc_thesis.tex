@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper,oneside]{report}
+\usepackage{hyperref}             % Single-side
+%\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
+
+\input{include/packages}
+
+%TODO Set the main variables
+\newcommand{\vikszerzoVezeteknev}{Nyilas}
+\newcommand{\vikszerzoKeresztnev}{Péter}
+
+\newcommand{\vikkonzulensAMegszolitas}{dr.~}
+\newcommand{\vikkonzulensAVezeteknev}{Hullám}
+\newcommand{\vikkonzulensAKeresztnev}{Gábor}
+
+\newcommand{\vikcim}{
+Training and Interpretation of a Neural Network Model for Traffic Object Detection}
+% Cím
+\newcommand{\viktanszek}{\bmemit} % Tanszék
+\newcommand{\vikdoktipus}{\bsc} % Dokumentum típusa (\bsc vagy \msc)
+\newcommand{\vikmunkatipusat}{szakdolgozatot} % a "hallgató nyilatkozat" részhez: szakdolgozatot vagy diplomatervet
+
+\input{include/tdk-variables}
+\newcommand{\szerzoMeta}{\vikszerzoVezeteknev{} \vikszerzoKeresztnev} % egy szerző esetén
+%\newcommand{\szerzoMeta}{\vikszerzoVezeteknev{} \vikszerzoKeresztnev, \tdkszerzoB} % két szerző esetén
+
+%TODO Language configuration -- choose one
+% Beállítások magyar nyelvű dolgozathoz
+%\input{include/thesis-hu}
+% Settings for English documents
+\input{include/thesis-en}
+
+\input{include/preamble}
+
+%--------------------------------------------------------------------------------------
+% Table of contents and the main text
+%--------------------------------------------------------------------------------------
+\begin{document}
+
+\pagenumbering{gobble}
+
+%TODO These includes define guidelines -- remove these
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%\include{include/guideline}
+\include{include/project}
+
+\selectthesislanguage
+
+%TODO Titlepage -- choose one from below
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\include{include/titlepage}		   % Szakdolgozat/Diplomaterv címlap
+
+
+% Table of Contents
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\tableofcontents\cleardoublepage
+
+
+% Declaration and Abstract
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\include{include/declaration} %TODO Hallgatói nyilatkozat -- TDK és OTDK esetén törlendő!
+%\include{content/abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
+
+
+% The main part of the thesis
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\pagenumbering{arabic}
+
+\chapter[Model, training and data]{The Model, its training and data processing} \label{part:model-training-data}
+\section{Convolutional Neural Networks}\label{sec:convolutional-neural-networks}
+
+\subsection{Introduction}\label{subsec:introduction}
+Convolutional Neural Networks (CNNs) are a class of deep learning models that are widely used for
+image recognition and object detection tasks.
+They are designed to process images by extracting features through convolutional layers and
+making predictions based on these features.
+
+\subsection{Characteristic layer types}\label{subsec:characteristic-layer-types}
+
+
+\pragraph{Convolutional layers}\label{par:convolutional-layers}
+
+
+\paragraph{Pooling layers}\label{par:pooling-layers}
+
+
+\paragraph{Fully connected layers}\label{par:fully-connected-layers}
+
+
+\paragraph{Sampling layers}\label{par:sampling-layers}
+
+\subsection{activation functions}\label{subsec:activation-functions}
+Activation functions are used in CNNs to introduce non-linearity into the model.
+They help the model learn complex patterns and make accurate predictions.
+Some common activation functions include ReLU, Sigmoid, and Tanh.
+
+\paragraph{ReLU}\label{par:relu}
+
+
+\paragraph{Sigmoid}\label{par:sigmoid}
+
+
+\paragraph{Tanh}\label{par:tanh}
+
+
+\section{Yolov8}\label{sec:yolov8}
+
+\subsection{Introduction to YOLO}\label{subsec:introduction-to-yolo}
+The YOLO (You Only Look Once) model is a cutting-edge object detection system that has gained a reputation for
+its speed and accuracy.
+It processes images in real time and identifies objects within them.
+One of the latest iteration, YOLOv8, has seen improvements in both performance and efficiency.
+\subsection{Architecture}\label{subsec:architecture}
+
+\paragraph{Backbone}\label{par:backbone}
+The YOLOv8 model is built on the bases of convolutional neural networks (CNN) that aims to extract the most essential features from the input images.
+It has been designed with both depth and efficiency in mind, with the intention of capturing intricate details while maintaining high processing speeds.
+\paragraph{Neck}\label{par:neck}
+The neck component of the YOLOv8 architecture serves as a bridge between the backbone and the head.
+It aggregates features from different layers of the backbone, enhancing the model's ability to detect objects at various scales.
+\paragraph{Head}\label{par:head}
+The head of the YOLOv8 model is responsible for making the final predictions.
+It processes the aggregated features from the neck and outputs bounding boxes and class probabilities for detected objects.
+\subsection{Training}\label{subsec:training}
+The training process for the YOLOv8 model involves feeding it a large dataset of labeled images.
+The model learns to identify objects by minimizing the difference between its predictions and the actual labels. Techniques such as data augmentation and regularization are used to improve the model's generalization capabilities.
+
+\section{Dataset and formats}\label{sec:dataset-and-formats}
+
+\subsection{Cityscapes}\label{subsec:cityscapes}
+The Cityscapes dataset is a large-scale dataset used for training and evaluating object detection models.
+It contains high-resolution images of urban scenes, with detailed annotations for various objects such as cars,
+pedestrians, and traffic signs.
+\subsection{Format conversion and datatypes}\label{subsec:formatconversion}
+Format conversion is a crucial step in preparing the dataset for training.
+The images and annotations are converted into a format that the YOLOv8 model can process
+This involves resizing images, normalizing pixel values, and converting annotations into a suitable format.
+
+%----------------------------------------------------------------------------------------%
+
+
+\chapter{Model interpretation using external solutions}\label{ch:model-interpretation}
+
+\section{Importance of Interpretation}\label{sec:importance-of-interpretation}
+Interpreting machine learning models is essential for understanding their decision-making processes.
+It helps in identifying biases, improving model performance, and building trust with users.
+Interpretation techniques provide insights into how models make predictions and highlight
+the most influential features.
+\section{Model agnostic methods}\label{sec:model-agnostic-methods}
+
+\subsection{Local Interpretable Model-agnostic Explanations}\label{subsec:lime}
+LIME is a popular model-agnostic interpretation method that explains individual predictions by
+approximating the model locally with an interpretable model.
+It perturbs the input data and observes the changes in the model's predictions to identify the most
+important features.
+\subsection{Shapley Additive explanations}\label{subsec:shap}
+SHAP is another model-agnostic method that provides consistent and accurate explanations for model predictions.
+It is based on cooperative game theory and assigns a Shapley value to each feature,
+representing its contribution to the prediction.
+\section{Model specific methods}\label{sec:model-specific-methods}
+
+\subsection{EigenCAM}\label{subsec:eigencam}
+EigenCAM is a model-specific interpretation method that visualizes the regions of an image that are most
+important for a model's prediction.
+It computes the principal components of the feature maps and highlights the areas that contribute the most
+to the final decision.
+\subsection{EigenGradCAM}\label{subsec:eigengradcam}
+EigenGradCAM is an extension of EigenCAM that combines gradient information with the principal components
+of the feature maps.
+It provides more detailed and accurate visualizations of the important regions in an image,
+helping to understand the model's decision-making process better.
+
+% Summary
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\chapter*{Summary}
+\addcontentsline{toc}{chapter}{Summary}
+
+This document presents a comprehensive study on the training and interpretation of a neural network
+model for traffic object detection.
+The key points discussed in the chapters are summarized as follows:
+
+\begin{itemize}
+    \item **Model, Training, and Data**: The YOLOv8 model architecture, including its backbone, neck, and head components, is detailed. The training process and the Cityscapes dataset used for training are also discussed.
+    \item **Model Interpretation Using External Solutions**: The importance of model interpretation is highlighted. Various model-agnostic methods such as LIME and SHAP, as well as model-specific methods like EigenCAM and EigenGradCAM, are explained.
+\end{itemize}
+
+The study concludes that effective training and interpretation of neural network models are crucial for accurate and reliable traffic object detection.
+
+
+
+%TODO import your own content
+
+
+% Acknowledgements
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%\include{content/acknowledgement}
+
+
+% List of Figures, Tables
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%\listoffigures\addcontentsline{toc}{chapter}{\listfigurename}
+%\listoftables\addcontentsline{toc}{chapter}{\listtablename}
+
+
+% Bibliography
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliography{bib/mybib}
+
+
+% Appendix
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%include{content/appendices}
+
+%\label{page:last}
+\end{document}
