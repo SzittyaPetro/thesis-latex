@@ -1,7 +1,7 @@
-\documentclass[11pt,a4paper,oneside]{report}
-\usepackage{hyperref}             % Single-side
-%\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
+%\documentclass[11pt,a4paper,oneside]{report}
 
+\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
+%\usepackage{hyperref}             % Single-side
 \input{include/packages}
 
 %TODO Set the main variables
@@ -41,15 +41,17 @@ Training and Interpretation of a Neural Network Model for Traffic Object Detecti
 %TODO These includes define guidelines -- remove these
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %\include{include/guideline}
-\include{include/project}
+%\include{include/project}
+\includepdf{include/Kozlekedesi-objektumok-detekciojat-megvalosito-Feladatkiiras.pdf}
 
 \selectthesislanguage
 
-%TODO Titlepage -- choose one from below
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \include{include/titlepage}		   % Szakdolgozat/Diplomaterv címlap
 
-
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 % Table of Contents
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \tableofcontents\cleardoublepage
@@ -58,26 +60,60 @@ Training and Interpretation of a Neural Network Model for Traffic Object Detecti
 % Declaration and Abstract
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \include{include/declaration} %TODO Hallgatói nyilatkozat -- TDK és OTDK esetén törlendő!
-%\include{content/abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
+\include{content/abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
 
 
 % The main part of the thesis
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \pagenumbering{arabic}
+\section{Introduction and Motivations}\label{sec:introduction}
+Accurate detection of traffic relevant objects is a critical task in the field of automotive and transportation systems.
+There can be multiple scenarios where different types of object detection is needed.
+In order to develop a highly sophisticated automated driving system a very crucial part of it is, to efficiently
+gather data from sensors located in the chassis and processing them to create a virtual model of the world surrounding our self-driving vehicle.
+Among the various solutions to this problem, the use of camera sensors as the primary source of information is prevalent.
+These sensors provide rich visual data, which can be effectively processed using different types of processing algorithms.
 
-\chapter[Model, training and data]{The Model, its training and data processing} \label{part:model-training-data}
-\section{Convolutional Neural Networks}\label{sec:convolutional-neural-networks}
+The biggest challenge in this field is to develop an algorithm that can accurately detect and classify objects in real-time,
+while being robust to various environmental conditions.
+This is where deep learning models come into play.
+These models have shown remarkable performance in object detection tasks, because of their ability to learn complex patterns ,
+and their capability to generalize well.
 
-\subsection{Introduction}\label{subsec:introduction}
-Convolutional Neural Networks (CNNs) are a class of deep learning models that are widely used for
-image recognition and object detection tasks.
-They are designed to process images by extracting features through convolutional layers and
-making predictions based on these features.
+However, the biggest drawback of these models is that they are often considered as black boxes,
+we cannot simply predict their output from the input we gave them.
+Tha fact that we cannot understand how they came to a certain conclusions, motivated the development(like~\cite{LIANG2021168})  of various model interpretation techniques.
+These techniques differ in their approach, but they all aim to provide insights into the decision-making process of the model.
+The complexity of interpreting models in these domains arises from the intricate nature of the data and the sophisticated algorithms used.
+Image processing models, for instance, must analyze vast amounts of visual data to detect and classify objects accurately.
+This complexity makes it challenging to trace the decision-making process, yet it is essential for identifying potential biases,
+improving model performance, and gaining the trust of users and regulatory bodies.
+Therefore, enhancing the interpretability of models in these areas is vital for advancing technology while
+maintaining safety and ethical standards.
 
-\subsection{Characteristic layer types}\label{subsec:characteristic-layer-types}
 
+\section{Objectives}\label{sec:objectives}
 
-\pragraph{Convolutional layers}\label{par:convolutional-layers}
+The main objectives of my thesis are as follows:
+
+\begin{itemize}
+    \item To train a neural network  for traffic object detection using the YOLOv8 architecture.
+    \item To interpret the model's predictions using external solutions such as LIME, SHAP and EigenCAM.
+    \item To evaluate the performance and interpretability of the model on a real-world dataset.
+    \item To analyze the results and draw conclusions on the effectiveness of the model for traffic object detection.
+    \item To propose future research directions and improvements for the model.
+\end{itemize}
+
+\section[Model, training and data management]{The Model, its training and data management} \label{sec:model-training-data}
+\subsection{Convolutional Neural Networks}\label{subsec:convolutional-neural-networks}
+
+Convolutional Neural Networks (CNNs) are a class of deep learning models that are mostly used for computer vision tasks.
+Given their ability to learn spatial hierarchies of features and their various types of data representations,
+they are perfect for the task of traffic object detection.
+The name of the class come from their use of convolutional layers, which apply filters to input data to extract features, outside
+convolutional layers, CNNs also contain pooling layers, fully connected layers, and activation functions.
+
+\paragraph{Convolutional layers}\label{par:convolutional-layers}
 
 
 \paragraph{Pooling layers}\label{par:pooling-layers}
@@ -88,7 +124,7 @@ making predictions based on these features.
 
 \paragraph{Sampling layers}\label{par:sampling-layers}
 
-\subsection{activation functions}\label{subsec:activation-functions}
+\paragraph{Activation Functions}\label{par:activation-functions}
 Activation functions are used in CNNs to introduce non-linearity into the model.
 They help the model learn complex patterns and make accurate predictions.
 Some common activation functions include ReLU, Sigmoid, and Tanh.
@@ -102,14 +138,14 @@ Some common activation functions include ReLU, Sigmoid, and Tanh.
 \paragraph{Tanh}\label{par:tanh}
 
 
-\section{Yolov8}\label{sec:yolov8}
+\subsection{Yolov8}\label{subsec:yolov8}
 
-\subsection{Introduction to YOLO}\label{subsec:introduction-to-yolo}
+\paragraph{Introduction to YOLO}\label{par:introduction-to-yolo}
 The YOLO (You Only Look Once) model is a cutting-edge object detection system that has gained a reputation for
 its speed and accuracy.
 It processes images in real time and identifies objects within them.
 One of the latest iteration, YOLOv8, has seen improvements in both performance and efficiency.
-\subsection{Architecture}\label{subsec:architecture}
+\paragraph{Model architecture}\label{par:architecture}
 
 \paragraph{Backbone}\label{par:backbone}
 The YOLOv8 model is built on the bases of convolutional neural networks (CNN) that aims to extract the most essential features from the input images.
@@ -120,9 +156,11 @@ It aggregates features from different layers of the backbone, enhancing the mode
 \paragraph{Head}\label{par:head}
 The head of the YOLOv8 model is responsible for making the final predictions.
 It processes the aggregated features from the neck and outputs bounding boxes and class probabilities for detected objects.
+
 \subsection{Training}\label{subsec:training}
 The training process for the YOLOv8 model involves feeding it a large dataset of labeled images.
-The model learns to identify objects by minimizing the difference between its predictions and the actual labels. Techniques such as data augmentation and regularization are used to improve the model's generalization capabilities.
+The model learns to identify objects by minimizing the difference between its predictions and the actual labels.
+Techniques such as data augmentation and regularization are used to improve the model's generalization capabilities.
 
 \section{Dataset and formats}\label{sec:dataset-and-formats}
 
@@ -130,6 +168,8 @@ The model learns to identify objects by minimizing the difference between its pr
 The Cityscapes dataset is a large-scale dataset used for training and evaluating object detection models.
 It contains high-resolution images of urban scenes, with detailed annotations for various objects such as cars,
 pedestrians, and traffic signs.
+The dataset is widely used in the field of computer vision for tasks such as semantic segmentation and object detection.
+
 \subsection{Format conversion and datatypes}\label{subsec:formatconversion}
 Format conversion is a crucial step in preparing the dataset for training.
 The images and annotations are converted into a format that the YOLOv8 model can process
@@ -138,40 +178,42 @@ This involves resizing images, normalizing pixel values, and converting annotati
 %----------------------------------------------------------------------------------------%
 
 
-\chapter{Model interpretation using external solutions}\label{ch:model-interpretation}
+\section{Model interpretation using external solutions}\label{sec:model-interpretation}
 
-\section{Importance of Interpretation}\label{sec:importance-of-interpretation}
+\subsection{Importance of Interpretation}\label{subsec:importance-of-interpretation}
 Interpreting machine learning models is essential for understanding their decision-making processes.
 It helps in identifying biases, improving model performance, and building trust with users.
 Interpretation techniques provide insights into how models make predictions and highlight
 the most influential features.
-\section{Model agnostic methods}\label{sec:model-agnostic-methods}
+\subsection{Model agnostic methods}\label{subsec:model-agnostic-methods}
 
-\subsection{Local Interpretable Model-agnostic Explanations}\label{subsec:lime}
+\paragraph{Local Interpretable Model-agnostic Explanations}\label{par:lime}
 LIME is a popular model-agnostic interpretation method that explains individual predictions by
 approximating the model locally with an interpretable model.
 It perturbs the input data and observes the changes in the model's predictions to identify the most
 important features.
-\subsection{Shapley Additive explanations}\label{subsec:shap}
+\paragraph{Shapley Additive explanations}\label{par:shap}
 SHAP is another model-agnostic method that provides consistent and accurate explanations for model predictions.
 It is based on cooperative game theory and assigns a Shapley value to each feature,
 representing its contribution to the prediction.
-\section{Model specific methods}\label{sec:model-specific-methods}
+\subsection{Model specific methods}\label{subsec:model-specific-methods}
 
-\subsection{EigenCAM}\label{subsec:eigencam}
+\paragraph{EigenCAM}\label{par:eigencam}
 EigenCAM is a model-specific interpretation method that visualizes the regions of an image that are most
 important for a model's prediction.
 It computes the principal components of the feature maps and highlights the areas that contribute the most
 to the final decision.
-\subsection{EigenGradCAM}\label{subsec:eigengradcam}
-EigenGradCAM is an extension of EigenCAM that combines gradient information with the principal components
-of the feature maps.
-It provides more detailed and accurate visualizations of the important regions in an image,
-helping to understand the model's decision-making process better.
+
+
+%\paragraph{EigenGradCAM}\label{subsec:eigengradcam}
+%EigenGradCAM is an extension of EigenCAM that combines gradient information with the principal components
+%of the feature maps.
+%It provides more detailed and accurate visualizations of the important regions in an image,
+%helping to understand the model's decision-making process better.
 
 % Summary
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\chapter*{Summary}
+\section*{Summary}
 \addcontentsline{toc}{chapter}{Summary}
 
 This document presents a comprehensive study on the training and interpretation of a neural network
