@@ -1,0 +1,107 @@
+%! Author = NyPeter
+%! Date = 2024. 10. 13.
+
+\section{Model Interpretation}\label{sec:model-interpretation}
+
+Model interpretation is a critical aspect of machine learning that aims to explain the decision-making process of models.
+Interpretable models are essential for building trust with users, identifying biases, and improving model performance.
+In this section, I discuss the importance of model interpretation and review various interpretation methods.
+In their work~\cite{LIANG2021168}, Liang et al. highlight the significance of model interpretation techniques
+in providing insights into the decision-making process of models.
+They sort these techniques into two categories:
+\begin{itemize}
+    \item Data Driven or more commonly Model-agnostic methods
+    \item Model Driven or Model-specific methods
+\end{itemize}
+
+\subsection{Importance of Interpretation}\label{subsec:importance-of-interpretation}
+
+Interpreting machine learning models is essential for understanding their decision-making processes.
+It helps in identifying biases, improving model performance, and building trust with users.
+Interpretation techniques provide insights into how models make predictions and highlight
+the most influential features.
+
+\subsection{Model Agnostic Methods}\label{subsec:model-agnostic-methods}
+Based on the work of~\cite{LIANG2021168}, model-agnostic interpretation methods can be divided into two categories:
+\begin{itemize}
+    \item Perturbation-based interpretation
+    \item Game theoretic approach
+\end{itemize}
+
+As discussed in~\cite{LIANG2021168}, these are designed to explain model predictions without relying on the internal structure of the model,
+making them applicable to a wide range of models.
+For image processing purposes, these methods are particularly easy to understand and implement.
+Both the game-theoretic and perturbation-based interpretation methods involve altering the input data
+and observing the resulting changes in the model's predictions on the modified image.
+
+\paragraph{Perturbation-based Interpretation}\label{par:pertubation-based-interpretation}
+
+Perturbation-based interpretation methods are model-agnostic techniques that explain model predictions by perturbing the input data.
+These methods generate perturbed samples by adding noise to the input image and observe the changes in the model's predictions.
+This masking is the main principle behind these methods.
+The most common type of masking is occlusion, where parts of the image are covered to determine their importance for the model's output.
+It can be interpreted as a form of feature selection, where the model's output is evaluated based on the presence or absence of specific features.
+
+It works in a similar way to the human visual system and the way we perceive the visual world,
+so that by obscuring different parts of an object, we can significantly alter our own eye's perception of the object.
+By analysing the effect of perturbations on the model's output, these methods identify the most important features for a given prediction.
+
+\paragraph{Game theoretic approach with perturbation}\label{par:game-theoretic-approach-with-pertubation}
+
+Game-theoretic approaches with perturbation are model-agnostic interpretation methods that leverage cooperative game theory to explain model predictions.
+This translates to decomposition of the input image into a number identical, equally-sized components, referred to as \("\)features\("\).
+The aforementioned parts constitute a set.
+In accordance with the implementation of this approach, SHAP, assigns a Shapley value to each feature.
+Based on its contribution to the model's prediction.
+This is calculated by considering all potential combinations of parts.
+These combinations represent all the subsets of the set of parts, and the Shapley value is calculated for each subset.
+The greater the variation in the model's prediction when a feature is added or removed, the higher the Shapley value.
+By considering all the potential combinations of features, these methods offer consistent and accurate explanations for model predictions.
+
+\paragraph{Comparison of Model Agnostic Methods}\label{par:comparison-of-model-agnostic-methods}
+Based on the work of~\cite{LIANG2021168}, these model agnostic interpretation methods have their strengths and weaknesses.
+Two of the most popular model-agnostic interpretation methods are LIME(as an example for Perturbation-based Interpretation)
+and SHAP(as an example for Game theoretic approach with perturbation).
+Through their example I will illustrate the differences between the two methods.
+
+LIME (Local Interpretable Model-agnostic Explanations) and SHAP (SHapley Additive exPlanations) while using
+different approaches, there are both using some form of perturbation to explain the model's predictions.
+LIME approximates the model locally by fitting a simple interpretable model around
+the prediction of interest, providing local explanations by perturbing the input
+data and observing the changes in the model's predictions.
+It is generally faster and simpler, making it suitable for quick, local explanations.
+
+
+On the other hand, SHAP is based on cooperative game theory and uses Shapley values to attribute the contribution of
+each feature to the prediction.
+It provides both local and global explanations by considering all possible combinations of features,
+producing consistent and theoretically sound explanations.
+
+
+Based on the discussions by~\cite{lundberg2017unifiedapproachinterpretingmodel}, Kernel SHAP, a variant of SHAP,
+is particularly useful for image processing tasks, as it can handle high-dimensional data efficiently.
+It is based on the idea of approximating the model with LIME and using the Shapley values to explain
+the model's predictions.
+This approach combines the strengths of both LIME and SHAP, providing accurate and efficient explanations for
+image processing models.
+
+However, SHAP is more computationally intensive due to the need to consider all possible feature combinations.
+During the interpretation scripts run, SHAP had 4 times larger GPU memory usage than LIME, while the runtime was ~100 times longer.
+While LIME is flexible and can be applied to any model and data type, SHAP offers a more comprehensive and theoretically
+grounded approach at a higher computational cost.
+
+\subsection{Model Specific Methods}\label{subsec:model-specific-methods}
+The base idea behind this category is to ground our interpretation on the models internal state.
+By this in the field of image processing, it aims to somehow visualize the inner state of the model, and project it back to the input image.
+Multiple methods exist in this category, such as Class Activation Maps, Gradient-based methods.
+In the following paragraphs, I will discuss the Class Activation Maps based on the work of
+~\cite{BanyMuhammad2021EigenCAM} and its implmentation in the next section.
+Furthermore, I will discuss the Gradient-based methods based on the work of~\cite{Selvaraju_2019}.
+
+
+\paragraph{Class Activation Maps}\label{par:CAM}
+
+\paragraph{Gradient-based Methods}\label{par:gradient-based-methods}
+
+
+\subsection{Comparison of Interpretation Methods}\label{subsec:evaluation-interpretation-methods}

@@ -1,0 +1,30 @@
+%! Author = NyPeter
+%! Date = 2024. 10. 13.
+
+
+\subsection{Application of Model agnostic methods}\label{subsec:Application-model-agnostic-methods}
+
+\paragraph{Local Interpretable Model-agnostic Explanations}\label{par:lime}
+LIME is a popular model-agnostic interpretation method that explains individual predictions by
+approximating the model locally with an interpretable model.
+It perturbs the input data and observes the changes in the model's predictions to identify the most
+important features.
+
+\paragraph{Shapley Additive explanations}\label{par:shap}
+SHAP is another model-agnostic method that provides consistent and accurate explanations for model predictions.
+It is based on cooperative game theory and assigns a Shapley value to each feature,
+representing its contribution to the prediction.
+
+\subsection{Application of Model specific methods}\label{subsec:application-model-specific-methods}
+
+\paragraph{EigenCAM}\label{par:eigencam}
+EigenCAM is a model-specific interpretation method that visualizes the regions of an image that are most
+important for a model's prediction.
+It computes the principal components of the feature maps and highlights the areas that contribute the most
+to the final decision.
+
+%\paragraph{EigenGradCAM}\label{subsec:eigengradcam}
+%EigenGradCAM is an extension of EigenCAM that combines gradient information with the principal components
+%of the feature maps.
+%It provides more detailed and accurate visualizations of the important regions in an image,
+%helping to understand the model's decision-making process better.
