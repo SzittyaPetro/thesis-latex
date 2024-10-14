@@ -66,59 +66,22 @@ Training and Interpretation of a Neural Network Model for Traffic Object Detecti
 % The main part of the thesis
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \pagenumbering{arabic}
-\section{Introduction and Motivations}\label{sec:introduction}
-%értelmezés
-The accurate detection of objects that are relevant to the movement of vehicles is a critical task in the field of automotive and transportation systems.
-Numerous scenarios can arise where different types of object detection is required.
-The development of a highly sophisticated automated driving system requires the efficient gathering and processing of data from sensors located in the chassis to create a virtual model of the surrounding world.
+\section{Introduction}\label{sec:introduction}
+\input{input/introduction-and-motivations}
 
-%tervezés célja
-The primary challenge of developing autonomous vehicles is the development of systems  to create a reliable and accurate perception of the vehicle's environment.
-One of the most widely used solutions is the use of camera sensors as they are able to
-provide rich visual data that can be processed rapidly and can give the most information by itself. The goal of this project was to develop a software capable of fully fulfilling this need.
-
-%értelmezés
-Nevertheless, the most significant limitation of these models is that they are frequently regarded as black boxes, lacking a straightforward correlation between input and output.
-This lack of transparency in how models arrive at conclusions has led to the development of numerous model interpretation techniques, as evidenced by the work of a number of different researchers~\cite{LIANG2021168}.
-These techniques vary in their approach, but they are all aiming to facilitate an insight into the decision-making process of the model.
-
-%feladat indokoltsága
-The complexity of interpreting models in these domains arises from the intricate nature of the data and the sheer size of models used.
-This complexity makes it challenging to trace the decision-making process, yet it is essential for identifying potential biases,
-improving model performance, and gaining the trust of users and regulatory bodies.
-Therefore, with the will of enhancing the interpretability of this project's model is vital for maintaining safety and ethical standards, given the nature of the application.
-
-%tervezés célja
-The secondary goal of this project was to try and implement different interpretation methods,
-aimed to interpret the model and try to create explanations locally about the output our model produces.
-
-
-\subsection{Structure}\label{subsec:Structure} % felépítés rövid összefoglalása
-
-The main parts of my thesis are as follows:
-
-\begin{itemize}
-    \item Literature study about Image processing Deep Convolutional Neural Networks
-    \item Yolo architecture and general overview on training and infrastructure.
-    \item Cityscapes Dataset and data processing and representation.
-    \item Evaluation of model performance
-    \item Literature review about model-agnostic and  model-dependent interpretation methods
-    \item Implementation, use and evaluation of EigenCAM, LIME and SHAP.
-    \item To analyze the results and draw conclusions on the effectiveness of the model and the XAI solutions for traffic object detection.
-\end{itemize}
 \section{Image Processing Deep Neural Networks}\label{sec:image-processing-deep-neural-networks}
-\input{part0}
+\input{input/part0}
 
 \section[Chosen model, training and data management]{The Model, its training and data management} \label{sec:model-training-data}
-\input{part1}
+\input{input/part1}
 
 
 %----------------------------------------------------------------------------------------%
 
-\input{part2}
+\input{input/part2}
 
 \section{Model interpretation using external solutions}\label{sec:model-interpretation-application}
-\input{part3}
+\input{input/part3}
 
 
 % Summary
