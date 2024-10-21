@@ -6,15 +6,33 @@
   year={2021}
 }
 
-@article{BanyMuhammad2021EigenCAM,
-  title={Eigen-CAM: Visual Explanations for Deep Convolutional Neural Networks},
-  author={Bany Muhammad, M. and Yeasin, M.},
-  journal={SN Computer Science},
-  volume={2},
-  pages={47},
-  year={2021},
-  doi={10.1007/s42979-021-00449-3},
-  url={https://doi.org/10.1007/s42979-021-00449-3}
+@inproceedings{Muhammad_2020,
+   title={Eigen-CAM: Class Activation Map using Principal Components},
+   url={http://dx.doi.org/10.1109/IJCNN48605.2020.9206626},
+   DOI={10.1109/ijcnn48605.2020.9206626},
+   booktitle={2020 International Joint Conference on Neural Networks (IJCNN)},
+   publisher={IEEE},
+   pages = {1--3},
+   author={Muhammad, Mohammed Bany and Yeasin, Mohammed},
+   year={2020},
+   month=jul }
+
+@misc{ISO5469:2021,
+  title        = {5469: Artificial Intelligence -- Transparency and Explainability},
+  year         = 2021,
+  author = {ISO/IEC},
+  organization = {International Organization for Standardization},
+  number       = {ISO 5469:2021}
+}
+
+@article{ruby2020binary,
+  title={Binary cross entropy with deep learning technique for image classification},
+  author={Ruby, Usha and Yendapalli, Vamsidhar},
+  pages = {5396},
+  journal={Int. J. Adv. Trends Comput. Sci. Eng},
+  volume={9},
+  number={10},
+  year={2020}
 }
 
 @inproceedings{Cordts2016Cityscapes,
@@ -23,7 +41,51 @@ author={Cordts, Marius and Omran, Mohamed and Ramos, Sebastian and Rehfeld, Timo
 booktitle={Proc. of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
 year={2016}
 }
-@misc{redmon2016lookonceunifiedrealtime,
+@article{DBLP:journals/corr/abs-1911-08287,
+  author       = {Zhaohui Zheng and
+                  Ping Wang and
+                  Wei Liu and
+                  Jinze Li and
+                  Rongguang Ye and
+                  Dongwei Ren},
+  title        = {Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression},
+  journal      = {CoRR},
+  volume       = {abs/1911.08287},
+  year         = {2019},
+  url          = {http://arxiv.org/abs/1911.08287},
+  eprinttype   = {arXiv},
+  pages        = {4},
+  eprint       = {1911.08287},
+  timestamp    = {Mon, 22 Jul 2024 08:24:24 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-1911-08287.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{li2020generalizedfocallosslearning,
+      title={Generalized Focal Loss: Learning Qualified and Distributed Bounding Boxes for Dense Object Detection},
+      author={Xiang Li and Wenhai Wang and Lijun Wu and Shuo Chen and Xiaolin Hu and Jun Li and Jinhui Tang and Jian Yang},
+      year={2020},
+      eprint={2006.04388},
+      archivePrefix={arXiv},
+      pages={4--5},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2006.04388},
+}
+
+@article{Terven_2023,
+   title={A Comprehensive Review of YOLO Architectures in Computer Vision: From YOLOv1 to YOLOv8 and YOLO-NAS},
+   volume={5},
+   ISSN={2504-4990},
+   url={http://dx.doi.org/10.3390/make5040083},
+   DOI={10.3390/make5040083},
+   number={4},
+   journal={Machine Learning and Knowledge Extraction},
+   publisher={MDPI AG},
+   author={Terven, Juan and Córdova-Esparza, Diana-Margarita and Romero-González, Julio-Alejandro},
+   year={2023},
+   month=nov, pages={1680–1716} }
+
+
+@article{redmon2016lookonceunifiedrealtime,
       title={You Only Look Once: Unified, Real-Time Object Detection},
       author={Joseph Redmon and Santosh Divvala and Ross Girshick and Ali Farhadi},
       year={2016},
@@ -33,10 +95,11 @@ year={2016}
       url={https://arxiv.org/abs/1506.02640},
 }
 
-@misc{das2020opportunitieschallengesexplainableartificial,
+@article{das2020opportunitieschallengesexplainableartificial,
       title={Opportunities and Challenges in Explainable Artificial Intelligence (XAI): A Survey},
       author={Arun Das and Paul Rad},
       year={2020},
+      pages = {1},
       eprint={2006.11371},
       archivePrefix={arXiv},
       primaryClass={cs.CV},
@@ -54,8 +117,25 @@ year={2016}
    publisher={Springer Science and Business Media LLC},
    author={Selvaraju, Ramprasaath R. and Cogswell, Michael and Das, Abhishek and Vedantam, Ramakrishna and Parikh, Devi and Batra, Dhruv},
    year={2019},
-   month=oct, pages={336–359} }
+   month=oct,
+   pages={336–359} }
 
+@inproceedings{Zhou_2016,
+  title={Learning Deep Features for Discriminative Localization},
+  author={Zhou, Bolei and Khosla, Aditya and Lapedriza, Agata and Oliva, Aude and Torralba, Antonio},
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2016},
+  pages={1--3},
+  doi={10.1109/CVPR.2016.319},
+}
+
+@misc{githubGitHubUltralyticsultralytics,
+	author = {UltraLytics},
+	title = {{G}it{H}ub - ultralytics/ultralytics at v8.2.103 --- github.com},
+	howpublished = {\url{https://github.com/ultralytics/ultralytics/tree/v8.2.103}},
+	year = {},
+	note = {[Accessed 20-10-2024]},
+}
 
 @article{sharma2017activation,
   title={Activation functions in neural networks},
@@ -63,15 +143,26 @@ year={2016}
   journal={Towards Data Sci},
   volume={6},
   number={12},
-  pages={310--316},
+  pages={311--314},
   year={2017}
+}
+
+@article{FractureDetection2024,
+author = {Ju, Rui-Yang and Cai, Weiming},
+year = {2023},
+month = {11},
+figures = {4},
+title = {Fracture detection in pediatric wrist trauma X-ray images using YOLOv8 algorithm},
+volume = {13},
+journal = {Scientific Reports},
+doi = {10.1038/s41598-023-47460-7}
 }
 
 @article{GU2018354,
 title = {Recent advances in convolutional neural networks},
 journal = {Pattern Recognition},
 volume = {77},
-pages = {354-377},
+pages = {355-359},
 year = {2018},
 issn = {0031-3203},
 doi = {https://doi.org/10.1016/j.patcog.2017.10.013},
@@ -80,28 +171,34 @@ author = {Jiuxiang Gu and Zhenhua Wang and Jason Kuen and Lianyang Ma and Amir S
 keywords = {Convolutional neural network, Deep learning},
 abstract = {In the last few years, deep learning has led to very good performance on a variety of problems, such as visual recognition, speech recognition and natural language processing. Among different types of deep neural networks, convolutional neural networks have been most extensively studied. Leveraging on the rapid growth in the amount of the annotated data and the great improvements in the strengths of graphics processor units, the research on convolutional neural networks has been emerged swiftly and achieved state-of-the-art results on various tasks. In this paper, we provide a broad survey of the recent advances in convolutional neural networks. We detailize the improvements of CNN on different aspects, including layer design, activation function, loss function, regularization, optimization and fast computation. Besides, we also introduce various applications of convolutional neural networks in computer vision, speech and natural language processing.}
 }
-@misc{lundberg2017unifiedapproachinterpretingmodel,
+
+@article{article,
+author = {Song, Shuhan},
+year = {2023},
+month = {10},
+figures = {4,5},
+title = {The use of color elements in graphic design based on convolutional neural network model},
+volume = {9},
+journal = {Applied Mathematics and Nonlinear Sciences},
+doi = {10.2478/amns.2023.2.00536}
+}
+
+@article{lundberg2017unifiedapproachinterpretingmodel,
       title={A Unified Approach to Interpreting Model Predictions},
       author={Scott Lundberg and Su-In Lee},
       year={2017},
+      pages = {4--6},
       eprint={1705.07874},
       archivePrefix={arXiv},
       primaryClass={cs.AI},
       url={https://arxiv.org/abs/1705.07874},
-}
-@InProceedings{Redmon_2016_CVPR,
-author = {Redmon, Joseph and Divvala, Santosh and Girshick, Ross and Farhadi, Ali},
-title = {You Only Look Once: Unified, Real-Time Object Detection},
-booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-month = {June},
-year = {2016}
 }
 
 @article{LIANG2021168,
 title = {Explaining the black-box model: A survey of local interpretation methods for deep neural networks},
 journal = {Neurocomputing},
 volume = {419},
-pages = {168-182},
+pages = {168-176},
 year = {2021},
 issn = {0925-2312},
 doi = {https://doi.org/10.1016/j.neucom.2020.08.011},
@@ -111,75 +208,16 @@ keywords = {Interpretable machine learning, Black-box models, Transparent models
 abstract = {Recently, a significant amount of research has been investigated on interpretation of deep neural networks (DNNs) which are normally processed as black box models. Among the methods that have been developed, local interpretation methods stand out which have the features of clear expression in interpretation and low computation complexity. Different from existing surveys which cover a broad range of methods on interpretation of DNNs, this survey focuses on local interpretation methods with an in-depth analysis of the representative works including the newly proposed approaches. From the perspective of principles, we first divide local interpretation methods into two main categories: model-driven methods and data-driven methods. Then we make a fine-grained distinction between the two types of these methods, and highlight the latest ideas and principles. We further demonstrate the effects of a number of interpretation methods by reproducing the results through open source software plugins. Finally, we point out research directions in this rapidly evolving field.}
 }
 
-@article{Candy86,
-  author       = {James C. Candy},
-  journaltitle = {{IEEE} Trans.\ on Communications},
-  month        = {01},
-  note         = {\doi{10.1109/TCOM.1986.1096432}},
-  number       = {1},
-  pages        = {72--76},
-  title        = {Decimation for Sigma Delta Modulation},
-  volume       = {34},
-  year         = {1986},
-}
+@article{Chitraningrum_Banowati_Herdiana_Mulyati_Sakti_Fudholi_Saputra_Farishi_Muchtar_Andria_2024, title={Comparison Study of Corn Leaf Disease Detection based on Deep Learning YOLO-v5 and YOLO-v8 }, volume={56}, url={https://jets.itb.ac.id/index.php/jets/article/view/6}, DOI={10.5614/j.eng.technol.sci.2024.56.1.5}, abstractNote={&amp;lt;p&amp;gt;Corn is one of the primary carbohydrate-rich food commodities in Southeast Asian countries, among which Indonesia. Corn production is highly dependent on the health of the corn plant. Infected plants will decrease corn plant productivity. Usually, corn farmers use conventional methods to control diseases in corn plants. Still, these methods are not effective and efficient because they require a long time and a lot of human labor. Deep learning-based plant disease detection has recently been used for early disease detection in agriculture. In this work, we used convolutional neural network algorithms, namely YOLO-v5 and YOLO-v8, to detect infected corn leaves in the public data set called ‘Corn Leaf Infection Data set’ from the Kaggle repository. We compared the mean average precision (mAP) of mAP 50 and mAP 50-95 between YOLO-v5 and YOLO-v8. YOLO-v8 showed better accuracy at an mAP 50 of 0.965 and an mAP 50-95 of 0.727. YOLO-v8 also showed a higher detection number of 12 detections than YOLO-v5 at 11 detections. Both YOLO algorithms required about 2.49 to 3.75 hours to detect the infected corn leaves. This all-trained model could be an effective solution for early disease detection in future corn plantations.&amp;lt;/p&amp;gt;}, number={1}, journal={Journal of Engineering and Technological Sciences}, author={Chitraningrum, Nidya and Banowati, Lies and Herdiana, Dina and Mulyati, Budi and Sakti, Indra and Fudholi, Ahmad and Saputra, Huzair and Farishi, Salman and Muchtar, Kahlil and Andria, Agus}, year={2024}, month={Feb.}, pages={66} }
 
-@inproceedings{Lee87,
-  author    = {Wai L. Lee and Charles G. Sodini},
-  booktitle = {Proc.\ of the IEEE International Symposium on Circuits and Systems},
-  location  = {Philadelphia, PA, USA},
-  month     = {05~4--7},
-  pages     = {459--462},
-  title     = {A Topology for Higher Order Interpolative Coders},
-  vol       = {2},
-  year      = {1987},
-}
 
-@thesis{KissPhD,
-  author      = {Peter Kiss},
-  institution = {Technical University of Timi\c{s}oara, Romania},
-  month       = {04},
-  title       = {Adaptive Digital Compensation of Analog Circuit Imperfections for Cascaded Delta-Sigma Analog-to-Digital Converters},
-  type        = {phdthesis},
-  year        = {2000},
-}
-
-@manual{Schreier00,
-  author       = {Richard Schreier},
-  month        = {01},
-  note         = {\url{http://www.mathworks.com/matlabcentral/fileexchange/}},
-  organization = {Oregon State University},
-  title        = {The Delta-Sigma Toolbox v5.2},
-  year         = {2000},
-}
-
-@misc{DipPortal,
-  author       = {{Budapesti Műszaki és Gazdaságtudományi Egyetem Villamosmérnöki és Informatikai Kar}},
-  howpublished = {\url{http://diplomaterv.vik.bme.hu/}},
-  title        = {Diplomaterv portál (2011. február 26.)},
-}
-
-@incollection{Mkrtychev:1997,
-  author    = {Mkrtychev, Alexey},
-  booktitle = {Logical Foundations of Computer Science},
-  doi       = {10.1007/3-540-63045-7_27},
-  editor    = {Adian, Sergei and Nerode, Anil},
-  isbn      = {978-3-540-63045-6},
-  pages     = {266-275},
-  publisher = {Springer Berlin Heidelberg},
-  series    = {Lecture Notes in Computer Science},
-  title     = {Models for the logic of proofs},
-  url       = {http://dx.doi.org/10.1007/3-540-63045-7_27},
-  volume    = {1234},
-  year      = {1997},
-}
-
-@report{Jeney,
-  author      = {Jeney, Gábor},
-  institution = {Budapesti Műszaki és Gazdaságtudományi Egyetem, Híradástechnikai Tanszék},
-  location    = {Budapest},
-  note        = {\url{http://www.mcl.hu/~jeneyg/kinezet.pdf}},
-  title       = {Hogyan néz ki egy igényes dokumentum? {N}éhány szóban az alapvető tipográfiai szabályokról},
-  type        = {techreport},
-  year        = {2014},
-}
-
+@inproceedings{E9843537,
+  author={Mahendrakar, Trupti and Ekblad, Andrew and Fischer, Nathan and White, Ryan and Wilde, Markus and Kish, Brian and Silver, Isaac},
+  booktitle={2022 IEEE Aerospace Conference (AERO)},
+  title={Performance Study of YOLOv5 and Faster R-CNN for Autonomous Navigation around Non-Cooperative Targets},
+  year={2022},
+  volume={},
+  number={},
+  pages={8},
+  keywords={Space vehicles;Satellites;Machine learning algorithms;Navigation;Space debris;Detectors;Solar panels},
+  doi={10.1109/AERO53065.2022.9843537}}

@@ -6,35 +6,47 @@
 Model interpretation is a critical aspect of machine learning that aims to explain the decision-making process of models.
 Interpretable models are essential for building trust with users, identifying biases, and improving model performance.
 In this section, I discuss the importance of model interpretation and review various interpretation methods.
-In their work~\cite{LIANG2021168}, Liang et al. highlight the significance of model interpretation techniques
+In their survey~\cite{LIANG2021168}, Liang et al. highlight the significance of model interpretation techniques
 in providing insights into the decision-making process of models.
 They sort these techniques into two categories:
-\begin{itemize}
+\begin{enumerate}
     \item Data Driven or more commonly Model-agnostic methods
     \item Model Driven or Model-specific methods
-\end{itemize}
+\end{enumerate}
 
-\subsection{Importance of Interpretation}\label{subsec:importance-of-interpretation}
+\paragraph{Importance of Interpretation}\label{par:importance-of-interpretation}
 
 Interpreting machine learning models is essential for understanding their decision-making processes.
 It helps in identifying biases, improving model performance, and building trust with users.
 Interpretation techniques provide insights into how models make predictions and highlight
 the most influential features.
 
+Interpretation of machine learning algorithms is a fairly new field, but it has gained significant attention
+in recent years due to the increasing complexity of models and the need for transparency and accountability.
+This need comes form industrial and judicial actors, who require explanations for the decisions made by models,
+especially in safety-critical applications such as autonomous vehicles, healthcare, and finance.
+In the last couple of years, the field of model interpretation has seen significant advancements, each brought
+us closer to understanding the inner workings of machine learning models, and try to put reason and logic behind
+otherwise black-box models.
+
+Furthermore, based on these advancements the aforementioned actors are more willing to adopt legislations, standards
+and regulations that require models to be interpretable, and provide explanations for their decisions.
+
+
 \subsection{Model Agnostic Methods}\label{subsec:model-agnostic-methods}
-Based on the work of~\cite{LIANG2021168}, model-agnostic interpretation methods can be divided into two categories:
-\begin{itemize}
+Based on the work of  Liang~\cite{LIANG2021168}, model-agnostic interpretation methods can be divided into two categories:
+\begin{enumerate}
     \item Perturbation-based interpretation
     \item Game theoretic approach
-\end{itemize}
+\end{enumerate}
 
-As discussed in~\cite{LIANG2021168}, these are designed to explain model predictions without relying on the internal structure of the model,
-making them applicable to a wide range of models.
+As discussed in the work of Liang~\cite{LIANG2021168}, these are designed to explain model predictions without relying
+on the internal structure of the model, hence their name,making them applicable to a wide range of models.
 For image processing purposes, these methods are particularly easy to understand and implement.
 Both the game-theoretic and perturbation-based interpretation methods involve altering the input data
 and observing the resulting changes in the model's predictions on the modified image.
 
-\paragraph{Perturbation-based Interpretation}\label{par:pertubation-based-interpretation}
+\subsubsection{Perturbation-based Interpretation}\label{subsubsec:pertubation-based-interpretation}
 
 Perturbation-based interpretation methods are model-agnostic techniques that explain model predictions by perturbing the input data.
 These methods generate perturbed samples by adding noise to the input image and observe the changes in the model's predictions.
@@ -58,8 +70,8 @@ These combinations represent all the subsets of the set of parts, and the Shaple
 The greater the variation in the model's prediction when a feature is added or removed, the higher the Shapley value.
 By considering all the potential combinations of features, these methods offer consistent and accurate explanations for model predictions.
 
-\paragraph{Comparison of Model Agnostic Methods}\label{par:comparison-of-model-agnostic-methods}
-Based on the work of~\cite{LIANG2021168}, these model agnostic interpretation methods have their strengths and weaknesses.
+\subsubsection{Comparison of Model Agnostic Methods}\label{subsubsec:comparison-of-model-agnostic-methods}
+Based on the work of Liang~\cite{LIANG2021168}, these model agnostic interpretation methods have their strengths and weaknesses.
 Two of the most popular model-agnostic interpretation methods are LIME(as an example for Perturbation-based Interpretation)
 and SHAP(as an example for Game theoretic approach with perturbation).
 Through their example I will illustrate the differences between the two methods.
@@ -94,14 +106,115 @@ grounded approach at a higher computational cost.
 The base idea behind this category is to ground our interpretation on the models internal state.
 By this in the field of image processing, it aims to somehow visualize the inner state of the model, and project it back to the input image.
 Multiple methods exist in this category, such as Class Activation Maps, Gradient-based methods.
-In the following paragraphs, I will discuss the Class Activation Maps based on the work of
-~\cite{BanyMuhammad2021EigenCAM} and its implmentation in the next section.
-Furthermore, I will discuss the Gradient-based methods based on the work of~\cite{Selvaraju_2019}.
+The following paragraphs, present a discussion of the Class Activation Maps with reference to the work of Bany Muhammad and his introduction of his interpretation method.
+~\cite{Muhammad_2020} and its implementation in the next section.
+Furthermore, I will discuss the Gradient-based methods based on the work of Selvaraju titled \("\)Grad-CAM: Visual
+Explanations from Deep Networks via Gradient-Based Localization\("\)~\cite{Selvaraju_2019}.
 
 
-\paragraph{Class Activation Maps}\label{par:CAM}
 
-\paragraph{Gradient-based Methods}\label{par:gradient-based-methods}
+\subsubsection{Class Activation Maps}\label{subsubsec:CAM}
 
+Class Activation Maps (CAMs) are a model-specific interpretation method designed to highlight the regions or features
+in an imag that are most pertinent to a given model.
+In an image, these are the regions that are most relevant to a model's decision, particularly in the context of classification tasks.
+The operation of CAMs is based on the projection of the activations from the final convolutional layers back onto the input image.
+This results in the generation of a heatmap, visually represents the areas that contributed
+the most to the prediction~\cite{Muhammad_2020}.
+This method provides valuable insights into which features the model is focusing on, enabling a better understanding of
+the model's decision-making process.
+
+The original CAM technique, first introduced by Zhou et al. (2016),
+is specifically designed for models that include global average pooling layers before the final output layer,
+often referred to as the \("\)head\("\).
+These pooling layers facilitate are responsible for the smooth projections (feature maps) on the methods output image.
+While the CAM technique is highly effective, it is somewhat limited in that it is optimized for this specific architectural
+configuration, which restricts its versatility.
+It is less flexible for networks that rely on fully connected layers following the convolutional layers~\cite{Zhou_2016}.
+
+To illustrate, in a classification task where a model identifies a vehicle in an image, CAM would generate a heat map over the vehicle.
+This indicates that the model primarily focused on that object when making its decision, which is a useful insight.
+In the absence of this information, there is a possibility that the network may be detecting an object that is not
+exclusive to that particular object class and this can result in greater confusion within the model.
+
+This type of visual feedback is especially valuable in domains such safety critical(automotive, etc\. ) or medical fields,
+where understanding why the model identifies certain patterns is critical~\cite{Muhammad_2020}.
+
+In response to the architectural limitations of the original CAM method, several improvements have been proposed.
+One significant extension is Grad-CAM (Gradient-weighted Class Activation Mapping), which eliminates the dependence
+on specific model architectures by using gradients to compute the heatmaps.
+Details of Grad-CAM will be further discussed in the next section~\cite{Selvaraju_2019}.
+
+\subsubsection{Gradient-based Methods}\label{subsubsec:gradient-based-methods}
+
+Gradient-based methods, such as Grad-CAM (Gradient-weighted Class Activation Mapping),
+take a different approach by utilizing the gradients flowing through the backpropagation of
+the network to localize the features within the image, that the models learn on.
+Grad-CAM generates heatmaps that highlight the regions of the image that contributed the most to the model's output.
+Selvaraju et al. (2019) demonstrated the effectiveness of this technique in their work titled
+\("\)Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization\("\)~\cite{Selvaraju_2019}.
+
+By leveraging gradients, Grad-CAM provides more precise localization of features compared to basic CAM techniques,
+making it particularly useful for deep neural networks in image recognition tasks.
+
+At the end this method, while beign more accurate than vanilla EigenCAM, I did not use this in my project due
+to several considerations.
+First of all, the method is more computationally expensive, and requires more memory to run, and was outweighted by the
+benefits of the CAM method, or other model-agnostic methods.
+Secondly, the method is more complex to implement, and requires more knowledge of the model's internal state,
+which state should have been changed to accommodate the method, which made the others more difficult to implement.
+
+\subsubsection{Comparison of Model Specific Methods}\label{subsubsec:comparison-of-model-specific-methods}
+
+Both CAM and Grad-CAM methods have been widely adopted for interpreting convolutional neural networks (CNNs)
+and are valuable tools for visualizing and understanding model behavior.
+While CAM is limited by its dependence on specific model architectures, Grad-CAM offers a more flexible and
+generalizable approach that can be applied to a wide range of models.
+The use of gradients in Grad-CAM allows for more precise localization of features within the image,
+providing valuable insights into the decision-making process of the model.
+
+In contest of the resulting visualizations, the output of the two networks tends to be really similar to each other.
+Which can be because the two methods are based on the same principle, and the implementation of the Grad-CAM
+is a direct extension of the CAM method, utilizing the activation maps with the gradients to provide the explanation.
 
 \subsection{Comparison of Interpretation Methods}\label{subsec:evaluation-interpretation-methods}
+
+
+Model-agnostic and model-specific interpretation methods each offer unique strengths and weaknesses when applied to
+an image processing model.
+Both approaches aim to provide insights into the model's decision-making.
+However, they are fundamentally different in terms of their underlying assumptions, flexibility, and computational requirements.
+
+
+Model-agnostic methods are designed to be applicable to any machine learning model, irrespective of the model's architectural
+or structural configuration.
+These techniques operate by treating the model as a black box and analyzing the input-output relationship without needing
+to access the model's internal workings.
+Model-agnostic methods often operate by perturbing the input data, observing the changes in the model’s predictions,
+and deriving explanations based on these observations as discussed previously~\ref{subsubsec:pertubation-based-interpretation}.
+This makes them highly flexible and applicable to a wide variety of tasks and models.
+However, this flexibility sometimes comes at the cost of interpretability precision, as model-agnostic methods approximate
+how a model behaves based on perturbations, which may not capture the complete depth of the model’s decision logic.
+
+Conversely, model-specific methods are designed to align with the internal mechanisms of a specific model architecture,
+thereby facilitating the generation of explanations based on the model's inherent operational logic.
+These methods are often more precise, as they can directly access the model's components—such as layers ,
+weights, or gradients—and utilize this information to interpret how the model made its decision.
+In fields like image processing, model-specific methods, such as Class Activation Maps (CAMs) or Gradient-based approaches,
+provide visual insights into the areas of an image that most influenced the model’s predictions.
+By visualizing the model’s internal state, model-specific methods offer a more direct way of understanding the model’s behavior,
+especially in tasks where identifying critical features or regions of the data is essential.
+
+In comparing these two categories, the fundamental difference lies in their generalizability versus precision.
+Model-agnostic methods are particularly usefull because of their ability to work across different models and domains,
+making them versatile tools in scenarios where multiple model types and architectures are used.
+However, they  frequently offer a higher-level view of the model’s behavior, which may be less precise than the
+insights gained from model-specific methods.
+Conversely, model-specific methods provide a more detailed data for understanding of the decision-making process,
+directly interacting with the internal components.
+This allows for more detailed insights but limits the applicability to certain model types.
+
+
+
+
+

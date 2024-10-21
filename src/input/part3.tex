@@ -2,10 +2,20 @@
 %! Date = 2024. 10. 13.
 
 
-\subsection{Application of Model agnostic methods}\label{subsec:Application-model-agnostic-methods}
+
+%\section{Model interpretation using external solutions}\label{sec:model-interpretation-%application}
+\section{Model interpretation component}\label{sec:model-interpretation2}
+
+\subsection{Methods for model interpretation}\label{subsec:methods-for-model-interpretation}
+
+\paragraph{EigenCAM}\label{par:eigencam}
+EigenCAM is a model-specific interpretation method that visualizes the regions of an image that are most
+important for a model's prediction.
+It computes the principal components of the feature maps and highlights the areas that contribute the most
+to the final decision.
 
 \paragraph{Local Interpretable Model-agnostic Explanations}\label{par:lime}
-LIME is a popular model-agnostic interpretation method that explains individual predictions by
+LIME is a widely used model-agnostic interpretation method that explains individual predictions by
 approximating the model locally with an interpretable model.
 It perturbs the input data and observes the changes in the model's predictions to identify the most
 important features.
@@ -15,16 +25,19 @@ SHAP is another model-agnostic method that provides consistent and accurate expl
 It is based on cooperative game theory and assigns a Shapley value to each feature,
 representing its contribution to the prediction.
 
-\subsection{Application of Model specific methods}\label{subsec:application-model-specific-methods}
+%Methods for interpretation: LIME, SHAP
+\subsection{Evaluation of interpretation methods}\label{subsec:evaluation-of-interpretation-methods}
+%Results on small_vehicle
+% Képmagyarázat
+% Detekció bizonyossága vs interpretáció zajosság
 
-\paragraph{EigenCAM}\label{par:eigencam}
-EigenCAM is a model-specific interpretation method that visualizes the regions of an image that are most
-important for a model's prediction.
-It computes the principal components of the feature maps and highlights the areas that contribute the most
-to the final decision.
+\subsection{Addressing the Anomaly regarding the noise of SHAP and the probability of the models detection}\label{subsec:Addressing the Anomaly regarding SHAP and the probability of detection}
 
-%\paragraph{EigenGradCAM}\label{subsec:eigengradcam}
-%EigenGradCAM is an extension of EigenCAM that combines gradient information with the principal components
-%of the feature maps.
-%It provides more detailed and accurate visualizations of the important regions in an image,
-%helping to understand the model's decision-making process better.
+\section{Results}\label{sec:results}
+SHAP:
+\begin{figure}[h]
+\includegraphics[width=1.0\textwidth]{figures/output1}
+\caption{SHAP results for the small vehicle class}\label{fig:SHAP_results1}
+\end{figure}
+%appliaction of methods
+

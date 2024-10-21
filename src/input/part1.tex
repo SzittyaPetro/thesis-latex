@@ -1,111 +1,8 @@
 
-\subsection{Introduction to YOLO}\label{subsec:introduction-to-yolo}
 
-The YOLO (You Only Look Once) model is a cutting-edge object detection system that has gained a reputation for its speed and accuracy.
-It is based on the YOLO algorithm , which is a real-time object detection algorithm developed by Joseph Redmon and Ali Farhadi in 2015\cite{redmon2016lookonceunifiedrealtime}.
+%Models for object detection
 
-Unlike traditional object detection methods that apply classifiers to various sections of an image,
-YOLO approaches the problem as a single regression problem.
-It divides the image into a grid and simultaneously predicts bounding boxes and class probabilities for each grid cell,
-allowing it to detect multiple objects in a single pass.
-This architecture not only enhances speed but also improves detection accuracy by reducing the number of false positives.
-
-The YOLO model has evolved through multiple versions, with improvements in both performance and varying capability.
-Subsequent versions of the model, including YOLOv2, YOLOv3, and the latest YOLOv5 and YOLOv7, as well as Yolov8 (with Yolov10 and 11 forthcoming),
-have introduced advancements in network architecture,
-feature extraction, and training techniques.
-These developments have rendered YOLO a suitable candidate for a plethora of applications,
-including autonomous vehicles, as evidenced by the author's own observations, surveillance systems, and real-time video analysis.
-
-A further noteworthy attribute of the Yolo-type neural networks is their scalability and versatility in terms of model architecture.
-These models are available in a range of sizes (\textit{nano, small, medium, large, extralarge}) and with a variety of detection types (\textit{semantic segmentation, bounding boxes,
-oriented bounding boxes, instance segmentation}), which can be deployed in diverse scenarios.
-
-For my work, I chose the~\textbf{Yolov8m} configuration, which stands for \textbf{Yolo version 8 medium}.
-My choice was made on the bases of previous experience with this model architecture and the popularity of its applications.
-
-%táblázat a Yolo architektúrákról és méreteikről hasznos lehet ide
-
-\subsection{Model architecture}\label{subsec:architecture}
-This network, like many others in the CNN family, has a distinctive architectural configuration that
-enables the execution of intricate tasks such as object detection and classification.
-The system is constituted of three distinct and discrete components,
-each comprising a unique set of layers that perform specific and separate functions.
-
-\paragraph{Backbone}\label{par:backbone}
-The YOLOv8 model is based on convolutional neural networks (CNNs) that have been specifically designed to capture essential features from input images.
-It comprises multiple layers of convolutional operations (called Conv and a complex layer called C2F)
-that extract progressively more sophisticated representations.
-This structure emphasises both depth and computational efficiency,
-enabling the model to discern subtle details while maintaining rapid processing capabilities.
-Innovations such as skip connections and normalization techniques are employed to enhance the learning dynamics and improve the model's robustness to variations in input conditions.
-%kép a backbone-ról
-
-\paragraph{Neck}\label{par:neck}
-In the YOLOv8 architectural design, the neck serves as an intermediary between the backbone and the head.
-The primary function of the neck is to consolidate features from the various levels of the backbone,
-thereby enhancing the model's ability to detect objects across different scales.
-By employing strategies such as feature fusion or pyramid pooling,
-the neck effectively integrates both coarse and fine features,
-enabling the model to better handle overlapping objects and diverse scene contexts.
-This feature aggregation is crucial for optimising the detection performance,
-as it allows the model to harness a comprehensive range of information.
-
-%kép a neckről
-
-
-\paragraph{Head}\label{par:head}
-The head of the YOLOv8 model is responsible for generating the final outputs,
-which are based on the features that have been processed through the neck.
-The final stage of the YOLOv8 model translates the aggregated feature maps into bounding box predictions and associated class scores for each detected object.
-This section typically employs a combination of convolutional and fully connected layers to refine these outputs,
-ensuring they are accurate and meaningful.
-Additionally, the head may implement techniques such as adaptive anchors or
-confidence scoring to enhance the localisation and classification accuracy.
-By effectively synthesising the rich feature information, the head enables YOLOv8 to achieve high-performance object detection suitable for a wide array of applications.
-
-%kép a headről
-
-\subsection{Training}\label{subsec:training}
-The training process~\cite{redmon2016lookonceunifiedrealtime} for the YOLOv8 model involves feeding its input with a large dataset of labeled images.
-The model learns to identify objects by minimizing the difference between its predictions and the actual labels trough multiple iterations:
-After a training cycle ,if the default settings are kept, a validation function (so called val) is run,
-to determine more information on the model's performance on pictures that are not present in the training set.
-The training process is iterative, with the model adjusting its parameters to improve its predictions over time.
-This process is computationally intensive and requires access to powerful hardware, such as GPUs.
-
-The training process involves several key steps, including data preprocessing, model initialization,
-loss calculation, and parameter optimization.
-The model is trained using a technique called backpropagation,which involves adjusting the model's weights based on
-the error between its predictions and the ground truth labels.
-The Yolov8 model uses a number of different loss functions to measure the difference between its predictions and the actual labels:
-
-\begin{itemize}
-\item CIoU(Complete Intersection over Union) loss for bounding box regression to improve localisation accuracy.
-\item DFL loss (Distribution Focal Loss) It helps the model to more accurate classification.
-\item VFL loss (Varifocal Loss) It's designed to address imbalances and uncertainties in classification tasks.
-\end{itemize}
-
-
-I opted for training the model on my local machine, using a single GPU, while it provided me with sufficient performance
-, the training time was significantly longer than it would have been on a more powerful cloud machine.
-To reduce the chance of overfitting, the training dataset is typically divided into training and validation sets,
-with the latter used to evaluate the model's performance on unseen data.
-The trainings batch size where set to 3, which is not common, but it was necessary to fit the model on the GPU,
-to optimise training time.
-
-\subsection{Training and evaluation with the help of MLOps solutions}\label{subsec:training-and-evaluation-with-the-help-of-mlops-solutions}
-In order to monitor the performance of the model and to facilitate the visualisation of the learning process,
-as well as to organise the experiments, an online machine learning monitoring solution, Comet.ml, has been selected.
-This tool is capable of tracking the training process in real time and of visualising the properties of the model on
-a user-friendly dashboard, which can be accessed from any device with an internet connection.
-The Comet.ml platform also provides a range of features that can be used to compare different experiments,
-such as hyperparameter tuning, model versioning, and collaboration tools, while also offering a comprehensive
-set of APIs for integration with other tools and platforms.
-
-I used it to monitor the training process of the YOLOv8 model and to evaluate its performance on the Cityscapes dataset,
-as well as to compare the results with other versions of the model configurations.
-
+\section{Object detection component implementation}\label{sec:object-detection-component-implementation}
 
 \subsection{Dataset and formats}\label{subsec:dataset-and-formats}
 
@@ -116,47 +13,132 @@ pedestrians, and traffic signs.
 The dataset is widely used in the field of computer vision for tasks such as semantic segmentation and object detection.
 
 I chose the gtFine dataset, consisting precisely labelled segmentation masks.
-Based on their work~\cite{Cordts2016Cityscapes} the set consists of 5000 images, with a resolution of 1024x2048 pixels, and annotations for 30 classes of objects.
+Based on their work where they published this dataset~\cite{Cordts2016Cityscapes} titled \("\)
+Thecityscapes dataset for semantic urban scene understanding\("\) the gtFine dataset consists of 5000 images,
+with a resolution of 1024x2048 pixels, and annotations for 30 classes of objects.
 It is divided into three subsets: training, validation, and test, with 2975, 500, and 1525 images, respectively.
-The dataset is annotated using pixel-level segmentation masks, which provide detailed information about the
+The validation and training sets contain annotations for 30 classes, while the test set doesn't include any annotations.
+The dataset is labelled using pixel-level segmentation masks, which provide detailed information about the
 location and shape of objects in the scene.
-However for the purpose of this work, the annotations were converted into bounding box format,
-which is more suitable for object detection tasks.
 
-\paragraph{Format conversion and datatypes}\label{par:formatconversion}
+However for the purpose of this work, the annotations were converted into bounding box format,
+which is more suitable and straight forward for this object detection tasks.
+Also, the dataset was filtered to include only the classes that are relevant to the project.
+
+\subsection{Data management} \label{subsec:data-management}
 The images and annotations are converted into a format that the YOLOv8 model can process, which is
-a text file containing the image path and the coordinates of the bounding boxes for each object in the image.
+a text file containing the image path and the coordinates of the bounding boxes in pixels for each object in the image.
 This process uses a custom script that reads the annotations from the Cityscapes dataset and converts the labels
-into labels whose classes are filtered and transformed into the grouping I chose for this project.
+into labels whose classes are filtered and transformed the relevant classes into the grouping I chose for this project.
 The classes were grouped into five categories:
 \begin{itemize}
-    \item \textb{small vehicle}\textit{(usually cars, which are for personal use)},
-    \item \textb{large vehicle}\textit{(busses, trucks and other large non personal vehicles)},
-    \item \textb{two wheelers}\textit{(bicycles nad motorcycles)},
-    \item \textb{On-rails}\textit{(trains and trams though the smaller Fine dataset didn't include any)}
-    \item and \textb{person} \textit{(pedestrian, and rider)}.
+    \item \textbf{small vehicle}\textit{(usually cars, which are for personal use)},
+    \item \textbf{large vehicle}\textit{(busses, trucks and other large non personal vehicles)},
+    \item \textbf{two wheelers}\textit{(bicycles and motorcycles)},
+    \item \textbf{On-rails}\textit{(trains and trams though the smaller Fine dataset didn't include any)}
+    \item and \textbf{person} \textit{(pedestrian, and rider)}.
 \end{itemize}
 
-The script also converts the semantic segmentation masks into bounding boxes, trough finding the most extreme points and
-create a bounding box around them.
-This converted output is then saved in a text file, which is used as input for the YOLOv8 model.
+The categories were selected on the basis that the model's confusion is more readily managed when objects
+that are more similar in appearance are grouped together, thereby facilitating the model's ability to
+distinguish between them.
 
-At the end the structure of the data is as follows:
+The script also converts the semantic segmentation masks into bounding boxes, trough finding the most
+extreme points and of the mask, create a bounding box around them.
+This converted output is then saved into a text file, which is in the format used as input for the YOLOv8 model.
+
+The final structure of the dataset with metadata(descriptors and lists) is as follows:
 \begin{itemize}
-    \item \textb{Root(gtFine)}: The root directory of the Cityscapes dataset, which contains the images and annotations.
+    \item \textbf{Root(gtFine)}: The root directory of the Cityscapes dataset, which contains the images and annotations.
     \begin{itemize}
-        \item \textb{labels}: Folder containing the images in the dataset, broken down into training, validation, and test sets
+        \item \textbf{image}: Folder containing the images in the dataset, broken down into training, validation, and test sets
     and further divided into subfolders based on the city where the images were captured.
-        \item \textb{labels}: The class label for each object in the image.
-        \item \textb{train.txt}: The training set, which contains the paths to the training images and their corresponding annotations.
-        \item \textb{val.txt}: The validation set, which contains the paths to the validation images and their corresponding annotations.
-        \item \textb{test.txt}: The test set, which contains the paths to the test images and their corresponding annotations.
+        \item \textbf{labels}: The class label for each object in the image.
+        \item \textbf{train.txt}: The training set, which contains the paths to the training images and their corresponding annotations.
+        \item \textbf{val.txt}: The validation set, which contains the paths to the validation images and their corresponding annotations.
+        \item \textbf{test.txt}: The test set, which contains the paths to the test images and their corresponding annotations.
     \end{itemize}
-    \item \textb{Descriptors}: The folder containing the class labels and their corresponding indices, as well as
+    \item \textbf{Descriptors}: The folder containing the class labels and their corresponding indices, as well as
     path set descriptor txt-s.
     It's used by the model to determine the classes, their indices and the paths to the images.
 \end{itemize}
 
-\subsection{Model evaluation}\label{subsec:model-evaluation}
+
+\subsection{Model Implementation}\label{subsec:model-implementation}
+
+
+\subsubsection{Justification behind the selection of YOLOV8}\label{subsubsec:justification-behind-the-selection-of-yolov8}
+
+
+For my work, I chose the~\textbf{Yolov8m} configuration, which stands for \textbf{Yolo version 8 medium}.
+My choice was made on the bases of previous experience with this model architecture and the popularity of its applications, made it so there are an abundance of literature regarding this specific algorithm and architecture.
+It is also suitable for numerous, different applications, this aspect was important because of the high variance in sizes and shapes of the traffic objects needed to be detected by the network.
+
+I also examined other networks such as Faster R-CNN and even an older Yolo version, Yolov5.
+
+The Faster R-CNN while being a less sophisticated model it gets outperformed by Yolo on,
+a comparison study on these networks \("\)Performance Study of YOLOv5 and Faster R-CNN for
+Autonomous Navigation around Non-Cooperative Targets\("\)~\cite{E9843537} it has a table which contains all the necessary information to decide that it is inferior to Yolov8 in almost every aspect
+
+
+I tested Yolov5 on the same dataset and produced inferior performance KPI(Key Performance Indicator)-s.
+I confirmed my findings by a paper that was discussing an application of these models~\cite{Chitraningrum_Banowati_Herdiana_Mulyati_Sakti_Fudholi_Saputra_Farishi_Muchtar_Andria_2024},
+Yolov5 exhibits inferior performance relative to Yolov8 on identical input data and with an equivalent architectural configuration.
+Additionally it is also faster.
+This comparison renders the Yolov5 model obsolete, and therefore it has been excluded from further consideration.
+
+Given its superior performance compared with the two models examined
+as well as the extensive availability of related materials, and it's ability to predict bounding boxes and class
+probabilities for objects in an image, the YOLOv8 algorithm has been selected for this undertaking.
+
+\paragraph{Chosen model's description and parametrisation}\label{par:model-architecture}
+
+Based on paragraph~\ref{subsubsec:justification-behind-the-selection-of-yolov8} the Yolov8 bounding box
+detection model's medium version was picked for this project.
+n order to facilitate the requirements of the project, the model was utilised in a pre-trained state,
+with the weights being downloaded from the official YOLOv8 repository~\cite{githubGitHubUltralyticsultralytics}.
+Subsequently, the model was fine-tuned on the Cityscapes dataset, which was converted into a format compatible
+with the model's processing capabilities.
+Training was conducted using the Adam optimiser with a learning rate of 0.01 for lr1 and lrf.
+I ran the training on the model for 30 epochs with a batch size of 3, to accommodate the limited local GPU memory.
+The training process ran on a single PNY NVIDIA Quadro P2000 5GB VCQP2000-PB GPU, with a total training time of 28.056 hours.
+
+
+\subsubsection{Model evaluation}\label{subsubsec:model-evaluation}
 The evaluation of the YOLOv8 model is performed using a set of metrics that measure its performance on the Cityscapes dataset.
 These metrics include precision, recall,mAP, and IoU, which are commonly used in object detection tasks.
+I used the mAP metric to evaluate the model's performance on the test set, which provides a comprehensive measure of its accuracy.
+The mAP is calculated by averaging the precision-recall curves for each class in the dataset, which gives an overall measure of the model's performance.
+
+\[
+\text{mAP} = \frac{1}{N} \sum_{i=1}^{N} \text{AP}_i
+\]
+
+where \( N \) is the number of classes and \( \text{AP}_i \) is the average precision for class \( i \).
+
+The IoU metric is used to evaluate the model's ability to accurately predict the bounding boxes for objects in the image.
+It measures the overlap between the predicted and ground truth bounding boxes, with a higher IoU indicating a more accurate prediction.
+
+\[
+\text{IoU} = \frac{\text{Area of Overlap}}{\text{Area of Union}}
+\]
+
+The model's performance is evaluated on the test set's all classes averaged:
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\
+\hline
+Precision & 0.781 \\
+\hline
+Recall & 0.611 \\
+\hline
+mAP & 0.41 \\
+\hline
+IoU & 0.80 \\
+\hline
+\end{tabular}
+\caption{Model performance metrics}
+\label{tab:model-performance-metrics}
+\end{table}

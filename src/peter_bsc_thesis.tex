@@ -1,6 +1,8 @@
 %\documentclass[11pt,a4paper,oneside]{report}
 
-\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
+\documentclass[11pt,a4paper,twoside,openright]{report}
+\usepackage{amsmath}
+\usepackage{graphicx} % Duplex
 %\usepackage{hyperref}             % Single-side
 \input{include/packages}
 
@@ -19,7 +21,7 @@ Training and Interpretation of a Neural Network Model for Traffic Object Detecti
 \newcommand{\vikdoktipus}{\bsc} % Dokumentum típusa (\bsc vagy \msc)
 \newcommand{\vikmunkatipusat}{szakdolgozatot} % a "hallgató nyilatkozat" részhez: szakdolgozatot vagy diplomatervet
 
-\input{include/tdk-variables}
+%\input{include/tdk-variables}
 \newcommand{\szerzoMeta}{\vikszerzoVezeteknev{} \vikszerzoKeresztnev} % egy szerző esetén
 %\newcommand{\szerzoMeta}{\vikszerzoVezeteknev{} \vikszerzoKeresztnev, \tdkszerzoB} % két szerző esetén
 
@@ -59,20 +61,19 @@ Training and Interpretation of a Neural Network Model for Traffic Object Detecti
 
 % Declaration and Abstract
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\include{include/declaration} %TODO Hallgatói nyilatkozat -- TDK és OTDK esetén törlendő!
-\include{content/abstract}    %TODO Összefoglaló -- TDK és OTDK esetén nem kötelező
+\include{include/declaration} %TODO Hallgatói nyilatkozat
+\include{content/abstract}    %TODO Összefoglaló
 
 
 % The main part of the thesis
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \pagenumbering{arabic}
-\section{Introduction}\label{sec:introduction}
+
 \input{input/introduction-and-motivations}
 
-\section{Image Processing Deep Neural Networks}\label{sec:image-processing-deep-neural-networks}
 \input{input/part0}
 
-\section[Chosen model, training and data management]{The Model, its training and data management} \label{sec:model-training-data}
+%\section[Chosen model, training and data management]{The Model, its training and data management} \label{sec:model-training-data}
 \input{input/part1}
 
 
@@ -80,27 +81,12 @@ Training and Interpretation of a Neural Network Model for Traffic Object Detecti
 
 \input{input/part2}
 
-\section{Model interpretation using external solutions}\label{sec:model-interpretation-application}
+
 \input{input/part3}
 
 
 % Summary
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\section*{Summary}
-\addcontentsline{toc}{chapter}{Summary}
-
-This document presents a comprehensive study on the training and interpretation of a neural network
-model for traffic object detection.
-The key points discussed in the chapters are summarized as follows:
-
-\begin{itemize}
-    \item **Model, Training, and Data**: The YOLOv8 model architecture, including its backbone, neck, and head components, is detailed. The training process and the Cityscapes dataset used for training are also discussed.
-    \item **Model Interpretation Using External Solutions**: The importance of model interpretation is highlighted. Various model-agnostic methods such as LIME and SHAP, as well as model-specific methods like EigenCAM and EigenGradCAM, are explained.
-\end{itemize}
-
-The study concludes that effective training and interpretation of neural network models are crucial for accurate and reliable traffic object detection.
-
-
 
 
 
@@ -111,7 +97,7 @@ The study concludes that effective training and interpretation of neural network
 
 % List of Figures, Tables
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%\listoffigures\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures\addcontentsline{toc}{chapter}{\listfigurename}
 %\listoftables\addcontentsline{toc}{chapter}{\listtablename}
 
 

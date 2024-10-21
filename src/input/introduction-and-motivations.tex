@@ -1,5 +1,7 @@
-\subsection{Introduction and Motivations}\label{subsec:introduction-and-motivations} % bevezetés és motivációk
+%\subsection{Introduction and Motivations}\label{subsec:introduction-and-motivations} % bevezetés és motivációk
 %értelmezés
+
+\section{Introduction}\label{sec:introduction}
 The accurate detection of objects that are relevant to the movement of vehicles is a critical task in the field of automotive and transportation systems.
 Numerous scenarios can arise where different types of object detection is required.
 The development of a highly sophisticated automated driving system requires the efficient gathering and processing of data from sensors located in the chassis to create a virtual model of the surrounding world.
@@ -28,13 +30,15 @@ Nevertheless, it is essential for the identification of potential biases, the im
 These factors are particularly important in the context of traffic object detection, where the consequences of model errors can be severe.
 This has heightened the importance of XAI solutions, with the aim of ensuring transparency for end users and developers alike.
 
-As discussed along other challenges in front of the development of AI systems by Arun Das and Paul Rad in their article
+As previously discussed in relation to other challenges facing the development of AI systems by Arun Das and Paul Rad in their article
 \("\)Opportunities and Challenges in the Development of AI Systems\("\) ~\cite{das2020opportunitieschallengesexplainableartificial}
-the General Data Protection Regulation (GDPR) now requires that decisions made by automated systems be
+The General Data Protection Regulation (GDPR) now requires that decisions made by automated systems be
 explainable to the user.
 Although the GDPR does not explicitly mention XAI and mainly focuses on data privacy,
-it is likely that in the future, it will be expected to include more algorithmic transparency and clarification of AI systems.
-
+it seems probable that in the future, there will be a greater expectation of algorithmic transparency and clarification of AI systems.
+Additionally, there are several ISO standards that are dedicated to the safety of AI systems,
+including ISO 5469\cite{ISO5469:2021}, which sets forth the requirements for ensuring the intended functionality of AI systems .
+Furthermore, it addresses the necessity for XAI methodologies to be employed in the advancement of AI systems.
 
 %tervezés célja
 It is therefore essential to enhance the interpretability of this project's model through the use of the aforementioned
@@ -45,34 +49,47 @@ effectiveness in the context of traffic object detection and try to instate a mo
 
 \subsection{Refinement of the task}\label{subsec:Refinement-of-the-task} % feladat finomítása
 
-\begin{enumerate}
-    \item The primary goal of this project is to develop a software capable of detecting traffic objects in real-time.
-    \begin{enumerate}
-        \item Understand the working principles of deep learning models for object detection.
-        \item The project will focus on the development of a deep learning model for traffic object detection, specifically using the YOLOv8 architecture.
-        \item The model will be trained on the  dataset, which contains images of urban environments with annotated traffic objects.
-        \item The model will be evaluated based on its performance in detecting traffic objects in real-time.
-    \end{enumerate}
-    \item The secondary goal is to enhance the interpretability of the model through the use of XAI methods.
-    \begin{enumerate}
-        \item Select and implement model-agnostic and model-specific interpretation methods.
-        \item Understand the working principles of these methods and apply them to the model.
-        \item Evaluate the effectiveness of these methods in interpreting the model's predictions.
-    \end{enumerate}
-\end{enumerate}
-he objective of this study is to develop a deep learning model for traffic object detection and to apply XAI methods to enhance the model's interpretability.
+
+The principal objective of this project is to develop a software solution capable of detecting traffic objects in real time.
+This will entail an investigation into the fundamental principles of deep learning models for object detection, with a
+particular emphasis on the construction of a model based on the YOLOv8 architectural framework.
+The model will be trained on a dataset comprising images of urban environments, each of which has been annotated with
+traffic objects.
+Following training, the model's performance will be evaluated based on its capacity to accurately detect traffic objects
+in real-time scenarios.
+
+In addition to real-time detection, the secondary objective of the project is to enhance the interpretability of the
+model through the utilisation of Explainable AI (XAI) methodologies.
+The selection and implementation of both model-agnostic and model-specific interpretation techniques will be undertaken,
+with a particular focus on understanding their underlying principles and applying them to the traffic detection model.
+The efficacy of these interpretation techniques will be evaluated by assessing their capacity to elucidate the
+rationale behind the model's predictions.
+This will ensure that the system is both accurate and transparent in its decision-making processes.
+The objective of this study is to develop a deep learning model for traffic object detection and to apply XAI
+methods to enhance the model's interpretability.
+
+The two tasks were approached as discrete entities, and thus their explanations were presented separately.
+Initially, the object detection and the neural network's fulfilment of the task and its evaluation were discussed.
+Subsequently, the model's interpretation methods and their outcomes were evaluated.
+
 The choice of dataset, model and interpretation methods was made with these goals in mind, with the intention of optimising the model for the task in question, in line with the findings of the literature and previous studies.
 \subsection{Structure}\label{subsec:Structure} % felépítés rövid összefoglalása
 
 The main parts of my thesis are as follows:
 
 \begin{itemize}
-    \item Literature study about Image processing Deep Convolutional Neural Networks
-    \item Yolo architecture and general overview on training and infrastructure.
-    \item Cityscapes Dataset and data processing and representation.
-    \item Evaluation of model performance
-    \item Literature review about model-agnostic and model-dependent interpretation methods
-    \item Implementation, use and evaluation of EigenCAM, LIME and SHAP\@.
-    \item To analyze the results and draw conclusions on the effectiveness of the model and the XAI solutions for traffic object detection.
+    \item Object detection component:
+    \begin{itemize}
+        \item Literature study about Image processing Deep Convolutional Neural Networks
+        \item Yolo architecture and general overview on training and infrastructure.
+        \item Cityscapes Dataset and data processing and representation.
+        \item Evaluation of model performance
+    \end{itemize}
+    \item Interpretation methods
+    \begin{itemize}
+        \item Literature review about model-agnostic and model-dependent interpretation methods
+        \item Implementation, use and evaluation of EigenCAM, LIME and SHAP\@.
+        \item To analyze the results and draw conclusions on the effectiveness of the model and the XAI solutions for traffic object detection.
+    \end{itemize}
 \end{itemize}
 
