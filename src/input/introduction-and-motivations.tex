@@ -2,21 +2,27 @@
 %értelmezés
 
 \section{Introduction}\label{sec:introduction}
-The accurate detection of objects that are relevant to the movement of vehicles is a critical task in the field of automotive and transportation systems.
-Numerous scenarios can arise where different types of object detection is required.
-The development of a highly sophisticated automated driving system requires the efficient gathering and processing of data from sensors located in the chassis to create a virtual model of the surrounding world.
 
-%tervezés célja
-The primary challenge of developing autonomous vehicles is the development of systems  to create a reliable and accurate perception of the vehicle's environment.
-One of the most widely used solutions is the use of camera sensors as they are able to
+The accurate detection of objects that are relevant to vehicle control is a critical task in the field of automotive and transportation systems.
+It is a particularly important aspect for the development of highly sophisticated autonomous driving systems, where numerous scenarios can arise in with different types of objects to detect and react to.
+These objects can be either static (not moving), or dynamic (capable of moving).
+The object detection is implemented trough the help of sensors using different physical phenomenons, such as acoustic or electromagnetic wave.
+These sensors are mounted onto the chassis of the autonomous vehicle.
+
+One of the most widely used solution is the use of camera sensors as they are able to
 provide rich visual data that can be processed rapidly and can give the most information by itself.
-The main goal of this project was to develop a software capable of fully fulfilling this need by detecting traffic
-objects in real-time while staying robust and reliable in various conditions.
-A perfect solution for this task are the deep learning models, especially Convolutional Neural Networks (CNNs).
+The main goal of this project was to develop a software capable of detecting dynamic traffic
+objects, while staying robust and reliable in various conditions.
+A fitting solution for this task was to utilise deep learning models, especially Convolutional Neural Networks, CNNs for short.
 
 %értelmezés
 Nevertheless, the most significant limitation of these models is that they are frequently regarded as black boxes, lacking a straightforward correlation between input and output.
-This lack of transparency in how models arrive at conclusions has led to the development of numerous model interpretation techniques,
+As we might want to use these systems in a safety critical applications,
+it is important to avoid unpredictable behaviour or mistrust from the stakeholders.
+High level of explainability should be the bases for trust and confidence between the system and its stakeholders.
+In accordance with this, the artificial intelligence-functional safety and AI systems ISO standard\cite{ISO5469:2021} devotes a chapter(8.3) to
+Degree of transparency and explainability.
+These needs led to the development of numerous model interpretation techniques,
 as evidenced by the work of a number of different researchers such as Yu Liang~\cite{LIANG2021168}.
 These techniques vary in their approach, but they are all aiming to facilitate an insight into the decision-making process of the model.
 In a unified manner, these methods are called eXplainable Artificial Intelligence methods, XAI for short.
@@ -36,9 +42,6 @@ The General Data Protection Regulation (GDPR) now requires that decisions made b
 explainable to the user.
 Although the GDPR does not explicitly mention XAI and mainly focuses on data privacy,
 it seems probable that in the future, there will be a greater expectation of algorithmic transparency and clarification of AI systems.
-Additionally, there are several ISO standards that are dedicated to the safety of AI systems,
-including ISO 5469\cite{ISO5469:2021}, which sets forth the requirements for ensuring the intended functionality of AI systems .
-Furthermore, it addresses the necessity for XAI methodologies to be employed in the advancement of AI systems.
 
 %tervezés célja
 It is therefore essential to enhance the interpretability of this project's model through the use of the aforementioned
@@ -56,23 +59,23 @@ particular emphasis on the construction of a model based on the YOLOv8 architect
 The model will be trained on a dataset comprising images of urban environments, each of which has been annotated with
 traffic objects.
 Following training, the model's performance will be evaluated based on its capacity to accurately detect traffic objects
-in real-time scenarios.
+in real scenarios.
 
-In addition to real-time detection, the secondary objective of the project is to enhance the interpretability of the
-model through the utilisation of Explainable AI (XAI) methodologies.
-The selection and implementation of both model-agnostic and model-specific interpretation techniques will be undertaken,
+In addition to object detection, the secondary objective of the project is to enhance the interpretability of the
+model through the utilisation of Explainable AI (XAI) me\-tho\-do\-lo\-gies.
+The selection and implementation of both model-agnostic and model-specific interpretation techniques will be undertaken (they will be discussed and explained later),
 with a particular focus on understanding their underlying principles and applying them to the traffic detection model.
-The efficacy of these interpretation techniques will be evaluated by assessing their capacity to elucidate the
-rationale behind the model's predictions.
+The effectiveness of these interpretation techniques will be evaluated based on their
+ability to provide insights into the rationale behind the model's predictions.
 This will ensure that the system is both accurate and transparent in its decision-making processes.
-The objective of this study is to develop a deep learning model for traffic object detection and to apply XAI
-methods to enhance the model's interpretability.
+The objective of this project is to develop a deep learning model for traffic object detection and to apply XAI methods to enhance the model's interpretability.
 
 The two tasks were approached as discrete entities, and thus their explanations were presented separately.
 Initially, the object detection and the neural network's fulfilment of the task and its evaluation were discussed.
 Subsequently, the model's interpretation methods and their outcomes were evaluated.
 
-The choice of dataset, model and interpretation methods was made with these goals in mind, with the intention of optimising the model for the task in question, in line with the findings of the literature and previous studies.
+The choice of dataset, model and interpretation methods was made with these goals in mind, with the intention of optimizing the model for the task in question, in line with the findings of the literature and previous studies.
+
 \subsection{Structure}\label{subsec:Structure} % felépítés rövid összefoglalása
 
 The main parts of my thesis are as follows:
@@ -80,16 +83,18 @@ The main parts of my thesis are as follows:
 \begin{itemize}
     \item Object detection component:
     \begin{itemize}
-        \item Literature study about Image processing Deep Convolutional Neural Networks
+        \item Literature study about image processing Deep Convolutional Neural Networks.
         \item Yolo architecture and general overview on training and infrastructure.
-        \item Cityscapes Dataset and data processing and representation.
-        \item Evaluation of model performance
+        \item Cityscapes dataset and data processing and representation.
+        \item Evaluation of model performance.
     \end{itemize}
     \item Interpretation methods
     \begin{itemize}
-        \item Literature review about model-agnostic and model-dependent interpretation methods
+        \item Literature review about model-agnostic and model-dependent interpretation methods.
         \item Implementation, use and evaluation of EigenCAM, LIME and SHAP\@.
         \item To analyze the results and draw conclusions on the effectiveness of the model and the XAI solutions for traffic object detection.
     \end{itemize}
 \end{itemize}
-
+%TODO
+%\section{Introduction to deep learning}\label{sec:introduction-to-deep-%learning} % bevezetés a mélytanulásba
+%Új ötlet lehet nem árt egy overview a mélytanulásról, hogy aki nem ért hozzá az is tudja miről van szó
