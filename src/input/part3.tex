@@ -5,6 +5,16 @@
 
 %\section{Model interpretation using external solutions}\label{sec:model-interpretation-%application}
 \section{Model interpretation component}\label{sec:model-interpretation2}
+Implementing the second component, which was responsible for the explainability of the model, my tasks were to implement and use the interpretation methods discussed in the next chapter.
+In order to run them I had to choose data, to feed to the models input.
+I chose the test set's pictures taken in the german city of Bonn,
+because it was the smallest set of pictures in the test set, which set was not run on the model before, to optimise the runtime.
+
+The implementation of the different methods were discussed in their own paragraphs in the next subsection.
+
+After the succesfull implementations of these methods, 2 of them got implemented in the main XAI python script. Because of hardware limitations I decided to use an external, cloud solution to run SHAP.
+
+After that I ran the python script to produce results for LIME and EigenCAM. Then on the preprocessed pictures and model I ran the notebook containing SHAP, and its output was downloaded into my local machine.
 
 \subsection{Methods for model interpretation}\label{subsec:methods-for-model-interpretation}
 
@@ -13,13 +23,17 @@ After that process is complete, a quick resizing of the images is taking place, 
 
 \paragraph{EigenCAM:}\label{par:eigencam}
 this model-specific interpretation method employs the eigenvalues of the convolutional layers to generate class activation maps.
-The eigenCAMvalues are derived from the activation vectors of the various layers, which are employed in the calculation of the activation maps.
+The eigenCAM values are derived from the activation vectors of the various layers, which are employed in the calculation of the activation maps.
 Subsequently, the maps are projected back to the input image, thereby highlighting the regions that are of particular importance for the model's prediction.
 
 The aforementioned regions are useful for understanding the output of each layer and the model's decision-making process.
 The output of the EigenCAM method can be interpreted as a heatmap, where the intensity of the colour represents the importance of
 the region for the model's prediction.
 By analysing these heatmaps for different layers of the same image, we can gain a deeper insight into the model's decision-making process.
+
+I used the github repository of Jacob Gildenblat ~\cite{jacobgilpytorchcam}
+, which contains an implementation of the method proposed by Zhou\cite{Zhou_2016}.
+After that the needed functions got called in the main python script, on the preprocessed image and the loaded model, and got iterated over multiple layers.
 
 \paragraph{Local Interpretable Model-agnostic Explanations:}\label{par:lime}
 
@@ -37,6 +51,7 @@ By employing these coefficients and superpixels, the superpixels that are most c
 colour of the given superpixels on the methods output image.
 Useful superpixels are green, while harmful superpixels, which impede the detection of objects, are red.
 
+To implement and integrate this method, I wrote a small script, which used the LIME python package\footnote{https://pypi.org/project/lime/} to help with the correct implementation of LIME, than I called the function containing all the features regarding LIME explanation in the main interpretation component called Yolov8\_XAI.py.
 
 \paragraph{Shapley Additive explanations:}\label{par:shap}
 
@@ -73,10 +88,11 @@ The loss is calculated by taking the squared difference between the predictions 
 
 As this method is model-agnostic, it can be employed to interpret the predictions of any model, regardless of its complexity.
 his can be a significant limitation when interpreting complex models with a large number of features.
+
 Thus, the method was only operational on an online platform, Google
 Colab\footnote{\\https://tinyurl.com/shapColab}, through a Jupiter notebook environment, as it provides
 the necessary computational resources and a fitting platform for the SHAP algorithm to run efficiently.
-
+The part of the implementation is based on the notebook of Akshay Gupta\footnote{https://github.com/akshay-gupta123/Face-Mask-Detection/blob/main/Notebooks/Shap.ipynb}, his code was rewritten and repurposed, mainly the structure of the code remained, the most heavy changes were made in the image processing, the output generation and the parameterisation of the used kernel SHAP function.
 
 %Methods for interpretation: LIME, SHAP
 \subsection{Evaluation of interpretation methods}\label{subsec:evaluation-of-interpretation-methods}
@@ -103,9 +119,9 @@ On which the models prediction can be found on the image: Figure\ref{fig:detbonn
 
 In the following I will describe all the image interpretations given by the different interpretation methods. And try and Interpret the model's workings based on those outputs.
 
+\newpage
 
-
-\paragraph{Evaluation of the EigenCAM method}\label{par:evaluation-of-the-eigencam-method}
+\subsubsection{Evaluation of the EigenCAM method}\label{subsubsec:evaluation-of-the-eigencam-method}
 
 In the figure constellation of Figure\ref{fig:Bonn_000035_000019} different layers are presented.
 These layers are
@@ -133,28 +149,28 @@ These layers are
     \centering
 
 
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.47\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/bonn_000035_000019_leftImg8bit.pnglayer-2/bonn_000035_000019_leftImg8bit.png_object(0)_heatmap}
         \caption{Layer -2}
         \label{fig:a-2}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.47\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/bonn_000035_000019_leftImg8bit.pnglayer-3/bonn_000035_000019_leftImg8bit.png_object(0)_heatmap}
         \caption{Layer -3}
         \label{fig:-3}
-    \end{subfigure}
+    \end{subfigure}\\
     \hfill
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/bonn_000035_000019_leftImg8bit.pnglayer-4/bonn_000035_000019_leftImg8bit.png_object(0)_heatmap}
         \caption{Layer -4}
         \label{fig:-4}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.24\textwidth}
+    \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figures/bonn_000035_000019_leftImg8bit.pnglayer-5/bonn_000035_000019_leftImg8bit.png_object(0)_heatmap}
         \caption{Layer -5}
@@ -176,8 +192,9 @@ It is evident that the highest activation values were present in the regions whe
 Pedestrians were observed to have their outlines and legs presented with higher activation values.
 Additionally, it was noted that the rough edges from the more inner layers in the network exhibited a process of smoothening layer to layer.
 
-\paragraph{Evaluation of the LIME method}\label{par:evaluation-of-the-lime-method}
-In the figure constellation of Figure\ref{fig:LIME_results} different types of LIME functions are presented. These are LIME\_SUM and LIME\_MULTI.
+\subsubsection{Evaluation of the LIME method}\label{subsubsec:evaluation-of-the-lime-method}
+In the figure constellation of Figure\ref{fig:LIME1} and~\ref{fig:LIME2} different types of LIME functions are presented.
+These are LIME\_SUM and LIME\_MULTI\@.
 LIME\_MULTI aggregates the contributions of each feature across multiple instances by summing the importance scores.
 This approach provides a simplified, overall view of how certain features influence the model's decisions on average,
 making it easier to identify the most significant features contributing to the model's predictions in a broad sense.
@@ -187,36 +204,55 @@ This method captures more granular information, allowing for a more detailed und
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/best-box_bonn_000035_000019_leftImg8bit}
-        \caption{LIME\_SUM}
-        \label{fig:LIME1}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.47\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/best-box_bonn_000035_000019_leftImg8bit_MULTI}
-        \caption{LIME\_MULTI}
-        \label{fig:LIME2}
-    \end{subfigure}
-    \hfill
-    \caption{LIME results}
-    \label{fig:LIME_results}
+    \includegraphics[width=\textwidth]{figures/best-box_bonn_000035_000019_leftImg8bit}
+    \caption{LIME\_SUM}
+    \label{fig:LIME1}
 \end{figure}
-
-\paragraph{Evaluation of the SHAP method}\label{par:evaluation-of-the-shap-method}
-In the figure\ref{fig:SHAP_result} SHAP is run to the image, and the shap values are clearly visible on the pictures, each picture represents the run on one instance of detected object.
+\hfill
 \begin{figure}[h]
     \centering
-        \centering
-        \includegraphics[width=\textwidth]{figures/output1}
-        \caption{SHAP results}
-        \label{fig:SHAP_result}
+    \includegraphics[width=\textwidth]{figures/best-box_bonn_000035_000019_leftImg8bit_MULTI}
+    \caption{LIME\_MULTI}
+    \label{fig:LIME2}
 \end{figure}
+
+The method in question lacks the requisite granularity and is unable to keep pace with more complex neural networks.
+Consequently, the resulting output is of questionable reliability, exhibiting inconsistencies such as the appearance of greens adjacent to detected objects, multiple artefacts, and a lack of discernible pattern or rationale in the red markings.
+This may be attributed to the method's inherent limitations in providing accurate explanations for intricate problems.
+
+\subsubsection{Evaluation of the SHAP method}\label{subsubsec:evaluation-of-the-shap-method}
+In the figure\ref{fig:SHAP_result} SHAP is run to the image, and the shap values are clearly visible on the pictures, each picture represents the run on one instance of detected object.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{\textwidth}
+        \includegraphics[width=\textwidth]{figures/output1}
+        \caption{SHAP results}\label{fig:SHAP_results11}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{\textwidth}
+        \includegraphics[width=\textwidth]{figures/output1,2}
+        \caption{SHAP results}\label{fig:SHAP_results12}
+    \end{subfigure}
+    \hfill
+    \caption{SHAP results for different instances in Bonn35}
+    \label{fig:SHAP_result}
+\end{figure}
+
 
 Red representing higher positive SHAP values, while blue represents negative SHAP values.
 Considering the most of the pictures, especially where overrepresented, highly visible objects can be seen, the interpretation is clean and readable.
+
+
+The SHAP results in both rows (on Figure\ref{fig:SHAP_result} a and b) provide the following insights into the model's behavior in this traffic scenario:
+
+\begin{itemize}
+\item The uniform highlighting of pedestrians and vehicles across all images indicates that the model is effectively identifying and focusing on the critical elements within the traffic scene. This is an encouraging indication of the model's interpretability and reliability in detecting important objects.
+\item The absence of emphasis on or attention to the muted or cooler blocks on buildings and other background areas indicates that the model does not rely on these features for its predictions. This is an anticipated and favourable outcome in the context of traffic-related tasks.
+\item Additionally, an anomaly is s evident on the more \("\)noisy\("\) images, which may be a limitation of this methodology.
+\end{itemize}
+
+
 
 
 \subsection{Addressing the Anomaly regarding the noise of SHAP and the probability of the models detection}\label{subsec:Addressing the Anomaly regarding SHAP and the probability of detection}
@@ -237,14 +273,15 @@ As illustrated in Figure~\ref{fig:Label_distribution} the dataset exhibits a sig
 This imbalance may result in the generation of noise in the model's predictions, as the model may exhibit a tendency to favour the more frequent classes due to the larger volume of data from which it has learned.
 Consequently, the limited number of examples for less frequent classes, such as pedestrians, may not provide the model with sufficient information to effectively capture their distinctive and often subtle features.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\linewidth]{figures/labels-30}
+    \includegraphics[width=0.8\linewidth]{figures/labels-30}
     \caption{Label distribution}
     \label{fig:Label_distribution}
 \end{figure}
 
-This deficiency in the training data can give rise to a number of issues. For example, the model may encounter difficulties in generalising effectively when it encounters pedestrian objects in real-world scenarios, due to insufficient exposure to their diverse appearances and contexts during training.
+This deficiency in the training data can give rise to a number of issues.
+For example, the model may encounter difficulties in generalising effectively when it encounters pedestrian objects in real-world scenarios, due to insufficient exposure to their diverse appearances and contexts during training.
 Consequently, the model may misclassify or fail to identify pedestrians, which can introduce additional noise in its output, manifesting as false negatives or incorrect predictions.
 Furthermore, the distinctive characteristics that differentiate pedestrian objects, such as specific shapes, movements, or interactions with the environment, may be underrepresented in the model's learned representations.
 To mitigate this noise and enhance detection accuracy, it is essential to balance the dataset or augment it with more diverse examples of the minority class, thereby enhancing the model's ability to learn these crucial features effectively.
@@ -257,51 +294,6 @@ This adjustment can help reduce the noise but may also result in the exclusion o
 Making the interpretation process more incompletely, but more reliable and less noisy.
 
 % TODO magyarázat
-\section{Results}\label{sec:results}
-SHAP:
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth]{figures/output1}
-\caption{SHAP results}\label{fig:SHAP_results1}
-\end{figure}
-%appliaction of methods
-\begin{figure}[h]
-\includegraphics[width=1.0\textwidth]{figures/output}
-\caption{SHAP results}\label{fig:SHAP_results2}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
+\newpage
 
 
-    \begin{subfigure}[b]{0.2\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/bonn_000036_000019_leftImg8bit.pnglayer-2/bonn_000036_000019_leftImg8bit.png_object(0)_heatmap}
-        \caption{Layer -2}
-        \label{fig:b-2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.2\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/bonn_000036_000019_leftImg8bit.pnglayer-3/bonn_000036_000019_leftImg8bit.png_object(0)_heatmap}
-        \caption{Layer -3}
-        \label{fig:b-3}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.2\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/bonn_000036_000019_leftImg8bit.pnglayer-4/bonn_000036_000019_leftImg8bit.png_object(0)_heatmap}
-        \caption{Layer -4}
-        \label{fig:b-4}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.2\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/bonn_000036_000019_leftImg8bit.pnglayer-5/bonn_000036_000019_leftImg8bit.png_object(0)_heatmap}
-        \caption{Layer -5}
-        \label{fig:b-5}
-    \end{subfigure}
-    \hfill
-
-    \caption{Activation maps for the Layer -2, -3, -4, -5 of Bonn36}
-    \label{fig:Bonn_000036_000019}
-\end{figure}

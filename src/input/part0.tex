@@ -222,7 +222,20 @@ oriented bounding boxes, instance segmentation}), which can be deployed in diver
 \label{fig:tableofsizes}
 \end{figure}
 
-%táblázat a Yolo architektúrákról és méreteikről hasznos lehet ide
+\subsubsection{The role of model size}\label{subsubsec:model-size}
+In the field of computer vision, particularly in the context of object detection tasks, the selection of an appropriate size for a
+Yolov8 model, such as Yolov8-Nano, Yolov8-Small,Yolov8-Medium,  Yolov8-Large, or Yolov8-eXtra-large is of paramount importance in order to achieve an optimal balance between accuracy, speed, and resource efficiency.
+
+The smaller models are lightweight and operate at high speeds, rendering them optimal for real-time applications on devices with constrained computational capabilities, such as mobile phones or edge devices.
+Although they consume less memory and processing power, they may compromise some accuracy, which can be an acceptable trade-off in applications where speed is more important than precision.
+
+In contrast, larger models demonstrate superior accuracy and are capable of handling intricate image details with greater precision, trough the models large number of trainable and frozen(not trainable) parameters.
+They are better suited to scenarios where there are fewer computational constraints, such as high-powered GPUs or cloud environments, where precise detection is essential.
+
+Selecting an appropriate model size allows developers to tailor solutions to the specific needs of their applications, ensuring both cost-effectiveness and reliability.
+This careful selection directly influences the efficiency and effectiveness of computer vision systems, optimising them for diverse deployment environments.
+
+In light of these considerations, I have opted to utilise a medium-sized model, aiming to strike a balance between computational capacity and accuracy.
 
 \subsection{Model architecture}\label{subsec:architecture}
 This network, like many others in the CNN family, has a distinctive architectural configuration that
@@ -236,7 +249,7 @@ The following paragraphs aim to provide an overview of these elements and their 
 \caption{The architecture of the Yolov8 model~\cite{FractureDetection2024}}
 \label{fig:architecture}
 \end{figure}
-
+\newpage
 \paragraph{Backbone:}\label{par:backbone}
 the Yolov8 model is based on convolutional neural networks that have been specifically designed to capture essential features from input images.
 It comprises multiple layers of convolutional operations (called Conv and a complex layer called C2F)
@@ -256,9 +269,7 @@ enabling the model to better handle overlapping objects and diverse scene contex
 This feature aggregation is crucial for optimising the detection performance,
 as it allows the model to harness a comprehensive range of information.
 
-%kép a neckről
-
-
+\newpage
 \paragraph{Head:}\label{par:head}
 the head of the Yolov8 model is responsible for generating the final outputs,
 which are based on the features that have been processed through the neck.
@@ -286,13 +297,13 @@ the error between its predictions and the ground truth labels.
 
 The Yolov8 model uses a number of different loss functions, according to the original paper~\cite{redmon2016lookonceunifiedrealtime}
 , loss functions to measure the difference between its predictions and the actual labels in different ways:
-
+\newpage
 
 
 \begin{itemize}
 \item \textbf{CIoU (Complete Intersection over Union) loss}:
 \begin{equation}
-\text{CIoU} = 1 - \left( \text{IoU} - \frac{\rho^2(\mathbf{b}, \mathbf{b}^g)}{c^2} - \alpha v \right) ~\cite{li2020generalizedfocallosslearning}
+\text{CIoU} = 1 - \left( \text{IoU} - \frac{\rho^2(\mathbf{b}, \mathbf{b}^g)}{c^2} - \alpha v \right) ~\cite{li2020generalizedfocallosslearning}\label{eq:equation3}
 \end{equation}
 where \(\rho\) is the Euclidean distance between the centre-points of the predicted box \(\mathbf{b}\) and
  the ground truth box \(\mathbf{b}^g\), \(c\) is the diagonal length of the smallest enclosing box covering
@@ -302,13 +313,13 @@ where \(\rho\) is the Euclidean distance between the centre-points of the predic
 
 \item \textbf{DFL (Distribution Focal Loss)}:
 \begin{equation}
-\text{DFL} = -\sum_{i=1}^{N} p_i \log(q_i)~\cite{DBLP:journals/corr/abs-1911-08287}
+\text{DFL} = -\sum_{i=1}^{N} p_i \log(q_i)~\cite{DBLP:journals/corr/abs-1911-08287}\label{eq:equation2}
 \end{equation}
 where \(p_i\) is the true probability distribution and \(q_i\) is the predicted probability distribution.
 It is sensible to the accuracy classification.
 \item \textbf{BCE (binary cross-entropy for classification loss)}:
 \begin{equation}
-\text{BCE} = -\sum_{i=1}^{N} y_i \log(p_i) + (1 - y_i) \log(1 - p_i)~\cite{ruby2020binary}
+\text{BCE} = -\sum_{i=1}^{N} y_i \log(p_i) + (1 - y_i) \log(1 - p_i)~\cite{ruby2020binary}\label{eq:equation}
 \end{equation}
 where \(y_i\) is the true label and \(p_i\) is the predicted probability.
 
@@ -322,3 +333,4 @@ with the latter used to evaluate the model's performance on unseen data.
 The trainings batch size where set to 3, which is not common, but it was necessary to fit the model on the GPU,
 to optimise training time.
 
+\newpage
