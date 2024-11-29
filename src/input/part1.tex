@@ -32,7 +32,7 @@ However for the purpose of this work, the annotations were converted into boundi
 which is more suitable and straight forward for this object detection tasks.
 Also, the dataset was filtered to include only the classes that are relevant to the project.
 
-\subsection{Data management} \label{subsec:data-management}
+\subsection{Data engineering} \label{subsec:data-management}
 The images and annotations are converted into a format that the Yolov8 model can process, which is
 a text file containing the image path and the coordinates of the bounding boxes in pixels for each object in the image.
 The format is straightforward: each line of the text file represents a single instance of an object.
@@ -88,7 +88,6 @@ It is also suitable for numerous, different applications, this aspect was import
 Training with custom datasets has also been made relatively easy.
 
 I also examined other networks such as Faster R-CNN and even an older Yolo version, Yolov5.
-
 I tested Yolov5 on the same dataset and produced inferior performance KPIs (Key Performance Indicators).
 I confirmed my findings by a paper that was discussing an application of these models~\cite{Chitraningrum_Banowati_Herdiana_Mulyati_Sakti_Fudholi_Saputra_Farishi_Muchtar_Andria_2024},
 Yolov5 exhibits inferior performance relative to Yolov8 on identical input data and with an equivalent architectural configuration.
@@ -106,7 +105,7 @@ probabilities for objects in an image, the Yolov8 algorithm has been selected fo
 \subsubsection{Chosen model's description and parametrisation}\label{subsubsec:model-architecture}
 
 Based on paragraph~\ref{subsubsec:justification-behind-the-selection-of-yolov8} the Yolov8 bounding box
-detection model's medium version was picked for this project.
+detection medium version of the model was picked for this project.
 In order to facilitate the requirements of the project, the model was utilised in a pre-trained state,
 with the weights being downloaded from the official Yolov8 repository~\cite{githubGitHubUltralyticsultralytics}, trained on the COCO dataset, as described in the paper where they introduced the network~\cite{redmon2016lookonceunifiedrealtime}.
 Subsequently, the model was fine-tuned on the Cityscapes dataset, which was converted into a format compatible with the model's processing capabilities.
@@ -121,13 +120,13 @@ as well as to organise the experiments, an online machine learning monitoring so
 This tool is capable of tracking the training process in real time and of visualising the properties of the model on
 a user-friendly dashboard, which can be accessed from any device with an internet connection.
 The Comet.ml platform also provides a range of features that can be used to compare different experiments,
-such as hyperparameter tuning, model versioning, and collaboration tools, while also offering a comprehensive
+such as hyper-parameter tuning, model versioning, and collaboration tools, while also offering a comprehensive
 set of APIs for integration with other tools and platforms.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=1.0\textwidth]{figures/model}
-\caption{Comet.ml dashboard made from our model's training.}
+\caption{Comet.ml dashboard made from the training of our model.}
 \label{fig:comet}
 \end{figure}
 
@@ -163,31 +162,27 @@ It measures the overlap between the predicted and ground truth bounding boxes, w
 In order to ensure the reliability of the subsequent analysis, only those detections with an IoU value of at least 0.80 were considered,
 and only those predictions with a relatively high degree of accuracy were utilised.
 
-The model's performance is evaluated on the test set's all classes averaged:
+The performance of the final and best performing model is evaluated on the test set's all classes averaged:
+
+
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\textbf{Metric} & \textbf{Value} \\
+\textbf{Class} & \textbf{Images} & \textbf{Instances} & \textbf{Box(P} & \textbf{R} & \textbf{mAP@0.5} & \textbf{mAP@0.5:0.95)} \\
 \hline
-Precision & 0.781 \\
-\hline
-Recall & 0.611 \\
-\hline
-mAP & 0.41 \\
-\hline
-IoU & 0.80 \\
+all            & 500             & 10654             & 0.797           & 0.638      & 0.719            & 0.478                 \\
+small\_vehicle & 479             & 4832              & 0.889           & 0.751      & 0.834            & 0.604                 \\
+person         & 441             & 4095              & 0.829           & 0.651      & 0.738            & 0.445                 \\
+large\_vehicle & 141             & 191               & 0.729           & 0.597      & 0.666            & 0.511                 \\
+two-wheeler    & 361             & 1536              & 0.741           & 0.553      & 0.637            & 0.354                 \\
 \hline
 \end{tabular}
-\caption{Model performance metrics}
-\label{tab:model-performance-metrics}
+\caption{Network performance in all classes, where a detection is a detection with at least 70\% IOU.}
+\label{table:performance_metrics}
 \end{table}
 
 
-%Szerintem ide kéne tenni a ka tanításos elméleti részról a bekezdés utánna meg a MLOps os részt
 
-%TODO
-%Úgy tartom hogy a Object detection-ös részről ennyit leírni talán elég lehet még a deep
-%learning overviewwal
-%És a továbbiakban az interpretálhatósággal és implementálásával,
-%az eredményekkel és azoknak magyarázatával tervezek foglalkozni.
+%Szerintem ide kéne tenni aka tanításos elméleti részról a bekezdés utánna meg a MLOps os részt
+

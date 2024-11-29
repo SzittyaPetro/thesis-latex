@@ -4,10 +4,10 @@
 \section{Introduction}\label{sec:introduction}
 
 The accurate detection of objects that are relevant to vehicle control is a critical task in the field of automotive and transportation systems.
-It is a particularly important aspect for the development of highly sophisticated autonomous driving systems, where numerous scenarios can arise in with different types of objects to detect and react to.
+It is a particularly important aspect for the development of highly sophisticated autonomous driving systems, where numerous scenarios can arise with different types of objects to detect and react to.
 These objects can be either static (not moving), or dynamic (capable of moving).
-The object detection is implemented trough the help of sensors using different physical phenomenons, such as acoustic or electromagnetic wave.
-These sensors are mounted onto the chassis of the autonomous vehicle.
+The object detection is implemented through the help of sensors using different physical phenomenons, such as acoustic or electromagnetic waves.
+These sensors are mounted to the chassis of the autonomous vehicle.
 
 One of the most widely used solution is the use of camera sensors as they are able to
 provide rich visual data that can be processed rapidly and can give the most information by itself.
@@ -17,8 +17,8 @@ A fitting solution for this task was to utilise deep learning models, especially
 
 %értelmezés
 Nevertheless, the most significant limitation of these models is that they are frequently regarded as black boxes, lacking a straightforward correlation between input and output.
-As we might want to use these systems in a safety critical applications,
-it is important to avoid unpredictable behaviour or mistrust from the stakeholders.
+As we might want to use these systems in safety critical applications,
+it is important to avoid unpredictable model-behaviour or mistrust from the stakeholders.
 High level of explainability should be the bases for trust and confidence between the system and its stakeholders.
 In accordance with this, the artificial intelligence-functional safety and AI systems ISO standard\cite{ISO5469:2021} devotes a chapter(8.3) to
 Degree of transparency and explainability.
@@ -32,7 +32,7 @@ In a unified manner, these methods are called eXplainable Artificial Intelligenc
 The complexity of interpreting models in these domains arises from two key factors: the intricate nature of the data and the sheer size of models used.
 The aforementioned complexity makes it challenging to trace the decision-making process, which unfolds across numerous neurons and layers,
 presents a significant challenge.
-Nevertheless, it is essential for the identification of potential biases, the improvement of model performance, the fostering the trust of users and regulatory bodies.
+Ne-ver-the-less, it is essential for the identification of potential biases, the improvement of model performance, the fostering the trust of users and regulatory bodies.
 These factors are particularly important in the context of traffic object detection, where the consequences of model errors can be severe.
 This has heightened the importance of XAI solutions, with the aim of ensuring transparency for end users and developers alike.
 
@@ -50,13 +50,13 @@ application.
 Based on that the secondary objective of this project was to try and implement these interpretation methods and examine their
 effectiveness in the context of traffic object detection and try to instate a more transparent and reliable model.
 
-\subsection{Refinement of the task}\label{subsec:Refinement-of-the-task} % feladat finomítása
+\subsection{Task refinement}\label{subsec:Refinement-of-the-task} % feladat finomítása
 
 
 The principal objective of this project is to develop a software solution capable of detecting traffic objects in real time.
 This will entail an investigation into the fundamental principles of deep learning models for object detection, with a
-particular emphasis on the construction of a model based on the YOLOv8 architectural framework.
-The model will be trained on a dataset comprising images of urban environments, each of which has been annotated with
+par-ti-cu-lar emphasis on the construction of a model based on the YOLOv8 architectural framework.
+The model will be trained on a dataset comprising images of urban en-vi-ron-ments, each of which has been annotated with
 traffic objects.
 Following training, the model's performance will be evaluated based on its capacity to accurately detect traffic objects
 in real scenarios.
@@ -64,7 +64,7 @@ in real scenarios.
 In addition to object detection, the secondary objective of the project is to enhance the interpretability of the
 model through the utilisation of Explainable AI (XAI) me\-tho\-do\-lo\-gies.
 The selection and implementation of both model-agnostic and model-specific interpretation techniques will be undertaken (they will be discussed and explained later),
-with a particular focus on understanding their underlying principles and applying them to the traffic detection model.
+with a particular focus on understanding their underlying prin-cip-les and applying them to the traffic detection model.
 The effectiveness of these interpretation techniques will be evaluated based on their
 ability to provide insights into the rationale behind the model's predictions.
 This will ensure that the system is both accurate and transparent in its decision-making processes.
@@ -78,25 +78,16 @@ The choice of dataset, model and interpretation methods was made with these goal
 
 \subsection{Structure}\label{subsec:Structure} % felépítés rövid összefoglalása
 
-The main parts of my thesis are as follows:
+The main structure of my thesis is outlined as follows.
 
-\begin{itemize}
-    \item Object detection component:
-    \begin{itemize}
-        \item Literature study about image processing Deep Convolutional Neural Networks.
-        \item Yolo architecture and general overview on training and infrastructure.
-        \item Cityscapes dataset and data processing and representation.
-        \item Evaluation of model performance.
-    \end{itemize}
-    \item Interpretation methods
-    \begin{itemize}
-        \item Literature review about model-agnostic and model-dependent interpretation methods.
-        \item Implementation, use and evaluation of EigenCAM, LIME and SHAP\@.
-        \item To analyze the results and draw conclusions on the effectiveness of the model and the XAI solutions for traffic object detection.
-    \end{itemize}
-\end{itemize}
-%TODO
-%\section{Introduction to deep learning}\label{sec:introduction-to-deep-%learning} % bevezetés a mélytanulásba
-%Új ötlet lehet nem árt egy overview a mélytanulásról, hogy aki nem ért hozzá az is tudja miről van szó
+The first major section focuses on the object detection component, which is divided into several subsections.
+It begins with a literature review on image processing techniques using deep convolutional neural networks.
+Following this, I provide a detailed description of the YOLO architecture, including an overview of the training process and the infrastructure used.
+Next, I cover data processing and representation with the Cityscapes dataset. This section concludes with an evaluation of the model’s performance.
+
+The second main section addresses interpretation methods.
+It starts with an overview of model-agnostic and model-dependent interpretation techniques.
+Then, I present the implementation, application, and evaluation of the EigenCAM, LIME, and SHAP methods.
+Finally, this section analyses the results and draws conclusions regarding the effectiveness of the model interpretability solutions for detecting traffic objects.
 
 \newpage

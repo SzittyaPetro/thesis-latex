@@ -55,16 +55,16 @@ Based on the work of  Liang~\cite{LIANG2021168}, model-agnostic interpretation m
 
 
 As discussed in the work of Liang~\cite{LIANG2021168}, these are designed to explain model predictions without relying
-on the internal structure of the model, hence their name, making them applicable to a wide range of models.
+on the internal structure of the model hence their name, making them applicable to a wide range of models.
 This insight may be more applicable to local examples, as the approach only provides explanations for the given data and not globally for the model itself.
 For image processing purposes, these methods are particularly easy to understand and implement.
 
 Both the game-theoretic and perturbation-based interpretation methods involve altering the input data
-and observing the resulting changes in the model's predictions on the modified image, while Adversarial-based interpretation methods focus on generating small perturbations or adversarial examples that can significantly change the model's predictions, highlighting the model's vulnerabilities.
+and observing the resulting changes in the predictions of the model on the modified image, while Adversarial-based interpretation methods focus on generating small perturbations or adversarial examples that can significantly change the predictions, highlighting the model's vulnerabilities.
 
 On the other hand, concept-based interpretation methods aim to link model behavior to high-level human-understandable concepts.
 
-Regardless, I will discuss the different types of data driven interpretation methods in the following paragraphs, each on the basis of Liang's work~\cite{LIANG2021168}
+Regardless, I will discuss the different types of data-driven interpretation methods in the following paragraphs, each on the basis of Liang's work~\cite{LIANG2021168}
 
 \subsubsection{Perturbation-based Interpretation}\label{subsubsec:pertubation-based-interpretation}
 
@@ -78,12 +78,12 @@ It can be interpreted as a form of feature selection, where the model's output i
 In essence, perturbation-based methods can be conceptualised as an optimisation problem.
 Given an input vector \( x \), a model function \( f(x) \), and a predicted vector \( y \),
 the objective is to identify which components of \( x \) contribute to the generation of the prediction. To accomplish this, the input features are systematically altered by introducing perturbations \( \delta x \)).
-This approach allows us to infer the importance of specific features by quantifying the extent to which the predicted vector  \( f(x + \delta x) \).
+This approach allows us to infer the importance of specific features by quantifying the extent to which the predicted vector \( f(x + \delta x) \).
 This approach allows us to infer the importance of specific features by quantifying the extent to which the predicted vector y is affected by the introduction of these perturbations.
 
 
 
-Perturbation-based methods are focusing on \("local\) \(interpretability"\), meaning they explain specific predictions rather than providing an overarching understanding of the model’s behavior.
+Perturbation-based methods are focusing on \("local\) \(interpretability"\), meaning they explain specific predictions rather than providing an overarching understanding of the model’s behaviour.
 This local explanation is vastly inferior to global interpretability.
 Regardless, sometimes it can be extended, to provide broader insights into the models logic.
 
@@ -97,7 +97,7 @@ for use in the project due to its simplicity and effectiveness in interpreting t
 
 There are multiple types of perturbations:
 \begin{itemize}
-    \item \textbf{Noise insertion}: adding some type of noise (Gaussian or random) to parts of the input data
+    \item \textbf{Noise insertion}: adding some type of noise (Gaussian or random) to parts of the input data.
     which can reveal the sensitivity of the model to small variations.
     \item \textbf{Blurring/Pixel Modification}: when working with image data, perturbations can be created by blurring parts of an image or modifying pixel intensities, which helps to understand how the clarity or sharpness of particular regions affects the prediction.
     \item \textbf{Feature Deletion for structured data}: remove or zeroing specific features, determining how significant that feature really is to the prediction.
@@ -105,18 +105,18 @@ There are multiple types of perturbations:
 \end{itemize}
 
 Given the project's domain, I only used perturbations used in image processing tasks, and these exclusively consists of modifying pixels and groups of pixels to determine their usefulness to the detection.
-In the following, I will discuss two variations of this standard perturbation based approach.
+In the following, I will discuss two variations of this standard perturbation-based approach.
 
 \paragraph{Game theoretic approach with perturbation}\label{par:game-theoretic-approach-with-pertubation}
 
- is a model-agnostic interpretation method that leverage cooperative game theory to explain model predictions.
+ is a model-agnostic interpretation method that employs cooperative game theory to explain model predictions.
 This translates to decomposition of the input image into a number identical, equally-sized components, referred to as \("\)features\("\).
 These are processed further and a so called Shapley value is calculated to each feature, based on their contribution to the prediction.
 This will be projected onto the image, where each feature will be coloured according to this value, thus facilitating easier reading and comprehension.
 A detailed examination of this process can be found in reference \ref{par:shap}, where the operational mechanics of this methodology will be elucidated.
 
 Based on the work of Lundberg~\cite{lundberg2017unifiedapproachinterpretingmodel} and Liang~\cite{LIANG2021168},
-these method, namely SHAP (SHapley Additive exPlanations), is particularly useful for image processing tasks, as it provides detailed insights into the model's decision-making process.
+this method, namely SHAP (SHapley Additive exPlanations), is particularly useful for image processing tasks, as it provides detailed insights into the model's decision-making process.
 On grounds of the aforementioned, I chose to use SHAP in my project, as it offers a comprehensive and theoretically grounded approach to interpreting the model's predictions.
 
 \paragraph{Adversarial-based interpretation}\label{par:adversarial-based-interpretation}
@@ -192,20 +192,17 @@ producing consistent and theoretically sound explanations.
 Based on the discussions by~\cite{lundberg2017unifiedapproachinterpretingmodel}, Kernel SHAP, a variant of SHAP,
 is particularly useful for image processing tasks, as it can handle high-dimensional data efficiently.
 It is based on the idea of approximating the model with LIME and using the Shapley values to explain
-the model's predictions.
+the predictions the model made.
 This approach combines the strengths of both LIME and SHAP, providing accurate and efficient explanations for
 image processing models.
 
-However, SHAP is more computationally intensive due to the need to consider all possible feature combinations.
-During the interpretation scripts run, SHAP had 4 times larger GPU memory usage than LIME, while the runtime was ~100 times longer.
-While LIME is flexible and can be applied to any model and data type, SHAP offers a more comprehensive and theoretically
-grounded approach at a higher computational cost.
+However, SHAP is more computationally intensive due to the necessity of considering all potential feature combinations. During the execution of the interpretation scripts, SHAP exhibited approximately four times the GPU memory usage of LIME, while the runtime was approximately one hundred times longer. While LIME is flexible and can be applied to any model and data type, SHAP offers a more comprehensive and theoretically grounded approach at a higher computational cost.
 
 \subsection{Model-Specific Methods}\label{subsec:model-specific-methods}
-The base idea behind this category is to ground our interpretation on the models internal state.
-By this in the field of image processing, it aims to somehow visualize some parameters of the inner  state of the model, and project it back to the input image.
+The base idea behind this category is to ground our interpretation on the internal state of the model.
+By this in the field of image processing, it aims to somehow visualize some parameters of the inner state of the model, and project it back to the input image.
 Multiple methods exist in this category, such as Class Activation Maps, Gradient-based methods.
-The following paragraphs, present a discussion of the Class Activation Maps with reference to the work of Bany Muhammad and his introduction of his interpretation method~\cite{Muhammad_2020}.
+The following paragraph, present a discussion of the Class Activation Maps with reference to the work of Bany Muhammad and his introduction of his interpretation method~\cite{Muhammad_2020}.
 Its implementation will be discussed in the next section.
 Furthermore, I will discuss the Gradient-based methods based on the work of Selvaraju titled \("\)Grad-CAM: Visual
 Explanations from Deep Networks via Gradient-Based Localization\("\)~\cite{Selvaraju_2019}.
@@ -218,7 +215,7 @@ Explanations from Deep Networks via Gradient-Based Localization\("\)~\cite{Selva
 Class Activation Maps (CAMs) are a model-specific interpretation method designed to highlight the regions or features
 in an image that are most pertinent to a given model.
 In an image, these are the regions that are most relevant to a model's decision, particularly in the context of classification tasks.
-The operation of CAMs is based on the projection of the activations from the  convolutional layers back onto the input image.
+The operation of CAMs is based on the projection of the activations from the convolutional layers back onto the input image.
 This results in the generation of a heatmap, visually represents the areas that contributed
 the most to the prediction~\cite{Muhammad_2020}.
 This method provides valuable insights into which features the model is focusing on, enabling a better understanding of
@@ -292,7 +289,7 @@ Both approaches aim to provide insights into the model's decision-making.
 However, they are fundamentally different in terms of their underlying assumptions, flexibility, and computational requirements.
 
 
-Model-agnostic methods often operate by perturbing the input data, observing the changes in the model’s predictions,
+Model-agnostic methods often operate by perturbing the input data, observing the changes in the  predictions of the model,
 and deriving explanations based on these observations as discussed previously~\ref{subsubsec:pertubation-based-interpretation}.
 This makes them highly flexible and applicable to a wide variety of tasks and models.
 However, this flexibility sometimes comes at the cost of interpretability precision, as model-agnostic methods approximate
@@ -304,13 +301,13 @@ These methods are often more precise, as they can directly access the model's co
 weights, activation vectors, or gradients and utilize this information to interpret how the model made its decision.
 In fields like image processing, model-specific methods, such as Class Activation Maps (CAMs) or Gradient-based approaches,
 provide visual insights into the areas of an image that most influenced the model’s predictions.
-By visualizing the model’s internal state, model-specific methods offer a more direct way of understanding the model’s behavior,
+By visualizing the internal state of the model, model-specific methods offer a more direct way of understanding the behaviour of the model,
 especially in tasks where identifying critical features or regions of the data is essential.
 
 In comparing these two categories, the fundamental difference lies in their generalization versus precision.
 Model-agnostic methods are particularly useful because of their ability to work across different models and domains,
 making them versatile tools in scenarios where multiple model types and architectures are used.
-However, they  frequently offer a higher-level view of the model’s behavior, which may be less precise than the
+However, they frequently offer a higher-level view of the behaviour of the model, which may be less precise than the
 insights gained from model-specific methods.
 Conversely, model-specific methods provide a more detailed data for understanding of the decision-making process,
 directly interacting with the internal components.
