@@ -24,6 +24,7 @@ if they are to be used in non-research areas.
 Building on the aforementioned state of the machine learning world, I felt it was important to try
 and create a fairly coherent interpretation of the model to meet today's industry standards.
 
+\newpage
 \subsection{Introduction to Interpretation methods}\label{subsec:introduction-to-interpretation-methods}
 
 Model interpretation is a critical aspect of machine learning that aims to explain the decision-making process of models. % Ismétlés
@@ -33,7 +34,7 @@ In this section, there will be a discussion of the importance of model interpret
 
 In their survey~\cite{LIANG2021168}, Liang et al. highlight the significance of model interpretation techniques in providing insights from the model itself, and the output of the model, without knowing the inner state of the model.
 
-Therefore they sorted these techniques into two categories:
+Therefore, they sorted these techniques into two categories:
 \begin{enumerate}
     \item data driven or more commonly as model-agnostic methods
     \item model driven or model-specific methods
@@ -64,7 +65,7 @@ and observing the resulting changes in the predictions of the model on the modif
 
 On the other hand, concept-based interpretation methods aim to link model behavior to high-level human-understandable concepts.
 
-Regardless, I will discuss the different types of data-driven interpretation methods in the following paragraphs, each on the basis of Liang's work~\cite{LIANG2021168}
+Regardless, I will discuss the different types of data-driven interpretation methods in the following paragraphs, each on the basis of Liang's work~\cite{LIANG2021168}.
 
 \subsubsection{Perturbation-based Interpretation}\label{subsubsec:pertubation-based-interpretation}
 
@@ -78,8 +79,7 @@ It can be interpreted as a form of feature selection, where the model's output i
 In essence, perturbation-based methods can be conceptualised as an optimisation problem.
 Given an input vector \( x \), a model function \( f(x) \), and a predicted vector \( y \),
 the objective is to identify which components of \( x \) contribute to the generation of the prediction. To accomplish this, the input features are systematically altered by introducing perturbations \( \delta x \)).
-This approach allows us to infer the importance of specific features by quantifying the extent to which the predicted vector \( f(x + \delta x) \).
-This approach allows us to infer the importance of specific features by quantifying the extent to which the predicted vector y is affected by the introduction of these perturbations.
+This approach allows us to infer the importance of specific features by quantifying the extent to which the predicted vector \(y = f(x + \delta x) \) is affected by the introduction of these perturbations.
 
 
 
@@ -91,20 +91,20 @@ It works in a similar way to the human visual system and the way we perceive the
 so that by obscuring different parts of an object, we can significantly alter our own eye's perception of the object.
 By analysing the effect of perturbations on the model's output, these methods identify the most important features for a given prediction.
 
-As a prominent implementation of this method is LIME (Local Interpretable Model-agnostic Explanations), which will be discussed in a following section section~\ref{subsec:methods-for-model-interpretation}, it was selected
+As a prominent implementation of this method is LIME (Local Interpretable Model-agnostic Explanations), which will be discussed in a following section~\ref{subsec:methods-for-model-interpretation}, it was selected
 for use in the project due to its simplicity and effectiveness in interpreting the model's predictions.
 
 
 There are multiple types of perturbations:
 \begin{itemize}
-    \item \textbf{Noise insertion}: adding some type of noise (Gaussian or random) to parts of the input data.
+    \item \textbf{Noise insertion}: adding some type of noise (Gaussian or random) to parts of the input data,
     which can reveal the sensitivity of the model to small variations.
     \item \textbf{Blurring/Pixel Modification}: when working with image data, perturbations can be created by blurring parts of an image or modifying pixel intensities, which helps to understand how the clarity or sharpness of particular regions affects the prediction.
     \item \textbf{Feature Deletion for structured data}: remove or zeroing specific features, determining how significant that feature really is to the prediction.
     \item \textbf{Text Data Perturbations}: for text data, this involves removing words, phrases, characters, but it can also mean swapping tokens with synonyms to gauge their importance to the output.
 \end{itemize}
 
-Given the project's domain, I only used perturbations used in image processing tasks, and these exclusively consists of modifying pixels and groups of pixels to determine their usefulness to the detection.
+Given the project's domain, I only used perturbations useful in image processing tasks, and these exclusively consists of modifying pixels and groups of pixels to determine their usefulness to the detection.
 In the following, I will discuss two variations of this standard perturbation-based approach.
 
 \paragraph{Game theoretic approach with perturbation}\label{par:game-theoretic-approach-with-pertubation}
@@ -265,7 +265,7 @@ which has made the other interpretation methods more time-consuming to implement
 
 Based on that I chose to use the CAM method in my project, as it is simpler to implement and provides valuable insights into the model's decision-making process.
 
-\newpage
+
 \subsubsection{Comparison of Model-Specific Methods}\label{subsubsec:comparison-of-model-specific-methods}
 
 Both CAM and Grad-CAM methods have been widely adopted for interpreting convolutional neural networks
@@ -290,7 +290,7 @@ However, they are fundamentally different in terms of their underlying assumptio
 
 
 Model-agnostic methods often operate by perturbing the input data, observing the changes in the  predictions of the model,
-and deriving explanations based on these observations as discussed previously~\ref{subsubsec:pertubation-based-interpretation}.
+and deriving explanations based on these observations as discussed previously in subsubsection~\ref{subsubsec:pertubation-based-interpretation}.
 This makes them highly flexible and applicable to a wide variety of tasks and models.
 However, this flexibility sometimes comes at the cost of interpretability precision, as model-agnostic methods approximate
 how a model behaves based on perturbations, which may not capture the complete depth of the model’s decision logic.

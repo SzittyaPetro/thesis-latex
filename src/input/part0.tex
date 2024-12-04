@@ -96,7 +96,7 @@ features to a greater extent than preserving sharp edges~\cite{GU2018354}.
 
 \paragraph{Global Pooling}
 methods, such as global max pooling and global average pooling, condense the entire feature map into a single value for each channel,
-based on the method chosen, eg. if the global max pooling is chosen, entire channel is condensed into the maximal value of the channel.
+based on the method chosen, e.g. if the global max pooling is chosen, entire channel is condensed into the maximal value of the channel.
 This technique is commonly employed at the conclusion of a convolutional neural network, particularly in image classification tasks, where the spatial location of features is of lesser consequence than their mere presence. Global pooling mitigates the risk of overfitting by producing a compact representation of the input data, as evidenced by Ruby (2020).~\cite{GU2018354}.
 
 
@@ -141,14 +141,14 @@ The following paragraphs  will discuss the ReLU, Sigmoid, and Tanh activation fu
         \label{fig:tanh}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.6\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figures/relu}
+        \includegraphics[width=0.5\linewidth]{figures/normal_relu}
+        %\includegraphics[width=\textwidth]{figures/relu}
         \caption{ReLU activation function}
         \label{fig:relu}
     \end{subfigure}
-
-    \caption{Activation functions: Sigmoid,Tanh and ReLU}
+    \caption{Activation functions: Sigmoid, Tanh and ReLU}
     \label{fig:activation_functions}
 \end{figure}
 
@@ -156,8 +156,10 @@ The following paragraphs  will discuss the ReLU, Sigmoid, and Tanh activation fu
 \paragraph{ReLU:}\label{par:relu}
 the Rectified Linear Unit (ReLU) is one of the most common and easy to understand activation functions in convolutional (or any other) neural networks.
 It is defined as \( f(x) = \max(0, x) \) in the works of Siddharth Sharma~\cite{sharma2017activation}.
+
 This function introduces non-linearity while maintaining a simple and efficient computation.
 The ReLU function helps mitigate the vanishing gradient issue, allowing models to learn faster and perform better.
+
 However, be susceptible to the phenomenon known as the \("\)dying ReLU\("\) problem, where neurons become inactive and only output zeros,
 particularly during the training of deep networks.
 
@@ -167,9 +169,11 @@ particularly during the training of deep networks.
 the Sigmoid function translates input values to a range between 0 and 1,
 rendering it useful for binary classification problems.
 It is defined as \( f(x) = \frac{1}{1 + e^{-x}} \) in the works of Siddharth Sharma~\cite{sharma2017activation}.
+
 While the Sigmoid function provides smooth gradients,
 it is prone to the vanishing gradient problem,
 especially for large positive or negative input values.
+
 This can slow down the training of deep networks,
 which is why it is often replaced by other activation
 functions in hidden layers,
@@ -180,7 +184,9 @@ though it still finds use in the output layer for binary classification tasks.
 \paragraph{Tanh:}\label{par:tanh}
 the hyperbolic tangent (Tanh) function is another activation function that maps input values to a range between -1 and 1.
 It is defined as  \( f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \)in the works of Siddharth Sharma~\cite{sharma2017activation}.
-The Tanh function is zero-centered and centricaly symmetrical, facilitates the centring of the data and may result in accelerated convergence during training.
+
+The Tanh function is zero-centered and centrically symmetrical, facilitates the centring of the data and may result in accelerated convergence during training.
+
 Nevertheless, it continues to exhibit the vanishing gradient problem for large input values, though to a lesser extent than the Sigmoid function.
 
 
@@ -206,7 +212,7 @@ The YOLO model has evolved through multiple versions, with improvements in both 
 Subsequent versions of the model, including Yolov2, Yolov3, and the latest Yolov5 and Yolov7, as well as Yolov8 (with Yolov10 and 11 forthcoming),
 have introduced advancements in network architecture,
 feature extraction, and training techniques.
-These developments have rendered YOLO a suitable candidate for a noumber of applications,
+These developments have rendered YOLO a suitable candidate for a number of applications,
 including autonomous vehicles, as evidenced by my own observations during my work in the industry, surveillance systems, and real-time video analysis.
 
 A further noteworthy attribute of the Yolo-type neural networks is their scalability and versatility in terms of model architecture.
@@ -221,22 +227,22 @@ oriented bounding boxes, instance segmentation}), which can be deployed in diver
 \caption{Different sizes of the Yolov8~\cite{githubGitHubUltralyticsultralytics}}
 \label{fig:tableofsizes}
 \end{figure}
-
+\newpage
 \subsubsection{The role of model size}\label{subsubsec:model-size}
 In the field of computer vision, particularly in the context of object detection tasks, the selection of an appropriate size for a
 Yolov8 model, such as Yolov8-Nano, Yolov8-Small,Yolov8-Medium,  Yolov8-Large, or Yolov8-eXtra-large is of paramount importance in order to achieve an optimal balance between accuracy, speed, and resource efficiency.
 
-The smaller models are lightweight and operate at high speeds, rendering them optimal for real-time applications on devices with constrained computational ca-pa-bi-li-ti-es, such as mobile phones or edge devices.
-Although they consume less memory and processing power, they may compromise some accuracy, which can be an ac-cept-ab-le trade-off in applications where speed is more important than precision.
+The smaller models are lightweight and operate at high speeds, rendering them optimal for real-time applications on devices with constrained computational capabiliti\-es, such as mobile phones or edge devices.
+Although they consume less memory and processing power, they may compromise some accuracy, which can be an ac\-cept\-ab\-le trade-off in applications where speed is more important than precision.
 
-In contrast, larger models demonstrate superior accuracy and are capable of handling intricate image details with greater precision, trough the models large number of trainable and frozen(not trainable) parameters.
+In contrast, larger models demonstrate superior accuracy and are capable of handling intricate image details with greater precision, through the models large number of trainable and frozen(not trainable) parameters.
 They are better suited to scenarios where there are fewer computational constraints, such as high-powered GPUs or cloud environments, where precise detection is essential.
 
 Selecting an appropriate model size allows developers to tailor solutions to the specific needs of their applications, ensuring both cost-effectiveness and reliability.
 This careful selection directly influences the efficiency and effectiveness of computer vision systems, optimising them for diverse deployment environments.
 
 In light of these considerations, I have opted to utilise a medium-sized model, aiming to strike a balance between computational capacity and accuracy.
-
+\newpage
 \subsection{Model architecture}\label{subsec:architecture}
 This network, like many others in the CNN family, has a distinctive architectural configuration that
 enables the execution of intricate tasks such as object detection and classification.
@@ -249,7 +255,6 @@ The following paragraphs aim to provide an overview of these elements and their 
 \caption{The architecture of the Yolov8 model~\cite{FractureDetection2024}}
 \label{fig:architecture}
 \end{figure}
-\newpage
 \paragraph{Backbone:}\label{par:backbone}
 the Yolov8 model is based on convolutional neural networks that have been specifically designed to capture essential features from input images.
 It comp-ri-ses multiple layers of convolutional operations (called Conv and a complex layer called C2F)
@@ -269,7 +274,7 @@ enabling the model to better handle overlapping objects and diverse scene contex
 This feature aggregation is crucial for optimising the detection performance,
 as it allows the model to harness a comprehensive range of information.
 
-\newpage
+
 \paragraph{Head:}\label{par:head}
 the head of the Yolov8 model is responsible for generating the final outputs,
 which are based on the features that have been processed through the neck.
@@ -288,7 +293,7 @@ After a training cycle, if the default settings are kept, a validation function 
 to determine more information on the model's performance on pictures that are not present in the training set.
 The training process is iterative, with the model adjusting its parameters to improve its predictions over time.
 This process is computationally intensive and requires access to powerful hardware,
-the best fitting hardware for this purpose, that can be found in an ordinary PC, is the GPU\@.
+the best fitting hardware for this purpose, which can be found in an ordinary PC, is the GPU\@.
 
 The training process involves several key steps, including data preprocessing, model initialization,
 loss calculation, and parameter optimization.

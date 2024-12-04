@@ -7,19 +7,21 @@
 \section{Model interpretation component}\label{sec:model-interpretation2}
 Implementing the second component, which was responsible for the explainability of the model, my tasks were to implement and use the interpretation methods discussed in the next chapter.
 In order to run them I had to choose data, to feed to the models input.
-I chose the test set's pictures taken in the german city of Bonn,
+I chose the test set's pictures taken in the German city of Bonn,
 because it was the smallest set of pictures in the test set, which set was not run on the model before, to optimise the runtime.
 
 The implementation of the different methods were discussed in their own paragraphs in the next subsection.
 
-After the successful implementations of these methods, 2 of them got implemented in the main XAI python script. Because of hardware limitations I decided to use an external, cloud solution to run SHAP.
+After the successful implementations of these methods, two of them got implemented in the main XAI Python script. Because of hardware limitations I decided to use an external, cloud solution to run SHAP.
 
-After that I ran the python script to produce results for LIME and EigenCAM. Then on the preprocessed pictures and model I ran the notebook containing SHAP, and its output was downloaded into my local machine.
+After that I ran the python script to produce results for LIME and EigenCAM. Then on the pre-processed pictures and model I ran the notebook containing SHAP, and its output was downloaded into my local machine.
 
 \subsection{Methods for model interpretation}\label{subsec:methods-for-model-interpretation}
 
-This component was implement into a python script file, which loaded the the model from a \("\).pt\("\) PyThorch\footnote{https://pytorch.org} file and reads in the given image.
+This component was implement into a python script file, which loaded the model from a \("\).pt\("\) PyThorch\footnote{https://pytorch.org} file and reads in the given image.
 After that process is complete, a quick resizing of the images is taking place, then the different interpretation methods are run after each other.
+
+All of the implementation of the project can be found on my github repository ().
 
 \paragraph{EigenCAM:}\label{par:eigencam}
 this model-specific interpretation method employs the eigenvalues of the convolutional layers to generate class activation maps.
@@ -32,20 +34,20 @@ The output of the EigenCAM method can be interpreted as a heatmap, where the int
 the region for the model's prediction.
 By analysing these heatmaps for different layers of the same image, we can gain a deeper insight into the model's decision-making process.
 
-I used the github repository of Jacob Gildenblat ~\cite{jacobgilpytorchcam}
-, which contains an implementation of the method proposed by Zhou\cite{Zhou_2016}.
+I used the github repository of Jacob Gildenblat~\cite{jacobgilpytorchcam}
+, which contains an implementation of the method proposed by Zhou~\cite{Zhou_2016}.
 After that the needed functions got called in the main python script, on the preprocessed image and the loaded model, and got iterated over multiple layers.
 
 \paragraph{Local Interpretable Model-agnostic Explanations:}\label{par:lime}
 
 this model-agnostic, perturbation-based method employs a local surrogate model to approximate the behaviour of the original model, by
 approximating the model's decision boundary by perturbing an instance and fitting a simpler interpretable model (such as linear regression) to the modified samples
-The method is frequently employed for the purpose of elucidating individual predictions and elucidating the model's decision-making process. For instance, in image classification, LIME can identify which pixels or regions(segments or superpixels) contribute most to the model's decision, while in other uses, for example in texts, it can highlight important words or phrases.
+The method is frequently employed for the purpose of elucidating individual predictions and elucidating the model's decision-making process. For instance, in image classification, LIME can identify which pixels or regions (segments or superpixels) contribute most to the model's decision, while in other uses, for example in texts, it can highlight important words or phrases.
 
 In my implementation of XAI component,  superpixels are generated for LIME, using the Slic algorithm, and a linear model is fitted to the perturbed data.
 The superpixel perturbation represents a more sophisticated approach than regular grid-based perturbations, as it is more likely to capture the relevant features of the image.
 This is achieved by creating a non-regular shaped superpixel out of similar and/or approximate pixels.
-Subsequently, the linear model, which is a white-box mode, is employed to approximate the behaviour of the original model and provide an explanation for the prediction.
+Subsequently, the linear model, which is a white-box model, is employed to approximate the behaviour of the original model and provide an explanation for the prediction.
 
 The output of the LIME method is a set of coefficients that represent the importance of each feature for the prediction of the model.
 By employing these coefficients and superpixels, the superpixels that are most crucial for the prediction can be identified by the
@@ -88,7 +90,7 @@ The loss is calculated by taking the squared difference between the predictions 
 
 
 As this method is model-agnostic, it can be employed to interpret the predictions of any model, regardless of its complexity.
-his can be a significant limitation when interpreting complex models with a large number of features.
+This can be a significant limitation when interpreting complex models with a large number of features.
 
 Thus, the method was only operational on an online platform, Google
 Colab\footnote{\\https://tinyurl.com/shapColab}, through a Jupiter notebook environment, as it provides
@@ -113,13 +115,12 @@ On which the models prediction can be observed in the image: Figure\ref{fig:detb
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{figures/bonn_000035_000019_leftImg8bit}
-    \caption{Model's detection to the picture Bonn35 }
+    \caption{Detection of objects in picture Bonn35 }
     \label{fig:detbonn35}
 \end{figure}
 
-In the followings I will describe all the image interpretations given by the different interpretation methods. And try and interpret the model's workings based on those outputs.
+In the following I will describe all the image interpretations given by the different interpretation methods. And try and interpret the model's workings based on those outputs.
 
-\newpage
 
 \subsubsection{Evaluation of the EigenCAM method}\label{subsubsec:evaluation-of-the-eigencam-method}
 
@@ -219,9 +220,9 @@ This method captures more granular information, allowing for a more detailed und
 The method in question lacks the required granularity and is unable to keep up with more complex neural networks.
 Consequently, the resulting output is of questionable reliability, exhibiting inconsistencies such as the appearance of greens adjacent to detected objects, multiple artifacts, and a lack of discernible pattern or rationale in the red markings.
 This may be attributed to the method's inherent limitations in providing accurate explanations for intricate problems.
-
+\newpage
 \subsubsection{Evaluation of the SHAP method}\label{subsubsec:evaluation-of-the-shap-method}
-In the figure\ref{fig:SHAP_result} SHAP is run to the image, and the shap values are clearly visible on the pictures, each picture represents the run on one instance of detected object.
+In the figure\ref{fig:SHAP_result} SHAP is run to the image, and the Shapley values are clearly visible on the pictures, each picture represents the run on one instance of detected object.
 
 \begin{figure}[h]
     \centering
@@ -249,7 +250,7 @@ The SHAP results in both rows (on Figure\ref{fig:SHAP_result} a and b) provide t
 \begin{itemize}
 \item The uniform highlighting of pedestrians and vehicles across all images indicates that the model is effectively identifying and focusing on the critical elements within the traffic scene. This is an encouraging indication of the interpretability of the model and reliability in detecting important objects.
 \item The absence of emphasis on or attention to the muted or cooler blocks on buildings and other background areas indicates that the model does not rely on these features for its predictions. This is an anticipated and favourable outcome in the context of traffic-related tasks.
-\item Additionally, an anomaly is is evident on the more \("\)noisy\("\) images, which may be a limitation of this methodology.
+\item Additionally, an anomaly is evident on the more \("\)noisy\("\) images, which may be a limitation of this methodology.
 \end{itemize}
 
 
@@ -275,21 +276,30 @@ Consequently, the limited number of examples for less frequent classes, such as 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/labels-30}
-    \caption{Label distribution}
+    \begin{subfigure}[h]{\textwidth}
+        \includegraphics[width=0.8\linewidth]{src/figures/LabelClassDistr}
+        \caption{Class distribution of labels}
+    \end{subfigure}
+    \begin{subfigure}[h]{\textwidth}
+        \includegraphics[width=1\linewidth]{src/figures/LabelPositionAndSizeDistr.png}
+        \caption{Position and size  distribution of labels}
+    \end{subfigure}
+    \caption{ }
     \label{fig:Label_distribution}
 \end{figure}
-
+\newpage
 This deficiency in the training data can give rise to a number of issues.
 For example, the model may encounter difficulties in generalising effectively when it encounters pedestrian objects in real-world scenarios, due to insufficient exposure to their diverse appearances and contexts during training.
-Consequently, the model may miss-classify or fail to identify pedestrians, which can introduce additional noise in its output, manifesting as false negatives or incorrect predictions.(This is represented on Figure~\ref{fig:Confusionmatrix})
+
+Consequently, the model may misclassify or fail to identify pedestrians, which can introduce additional noise in its output, manifesting as false negatives or incorrect predictions. (This is represented on Figure~\ref{fig:Confusionmatrix})
 Furthermore, the distinctive characteristics that differentiate pedestrian objects, such as specific shapes, movements, or interactions with the environment, may be under-represented in the model's learned representations.
+
 To mitigate this noise and enhance detection accuracy, it is essential to balance the dataset or augment it with more diverse examples of the minority class, thereby enhancing the model's ability to learn these crucial features effectively.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{figures/confusion_matrix2}
-    \caption{Confusion matrix showing the us the detailed classification results of an algorithm on a test set by analysing its rows, columns, or entries}
+    \includegraphics[width=1\linewidth]{src/figures/confusion matrix2.png}
+    \caption{Confusion matrix for the classification results of Yolov8 using the Cityscapes dataset.}%Confusion matrix showing the us the detailed classification results of an algorithm on a test set by analysing its rows, columns, or entries}
     \label{fig:Confusionmatrix}
 \end{figure}
 %% külön cm-ről
@@ -300,7 +310,7 @@ To address this issue, an increase in the detection threshold of the model for t
 This could be achieved by ignoring detections with a lower probability, thus enhancing the reliability and decreasing the noise
 of SHAP interpretations.
 This adjustment can help reduce the noise but may also result in the exclusion of some objects from the interpretation process.
-Making the interpretation process more incompletely, but more reliable and less noisy.
+Making the interpretation process more incomplete, but more reliable and less noisy.
 
 \subsubsection{Explanations to the Confusion Matrix}
 The confusion matrices provide a detailed assessment of the model's classification performance for categories: \textit{small\_vehicle}, \textit{person} and \textit{large\_vehicle}.
@@ -310,6 +320,6 @@ The absolute score matrix (left) shows high accuracy for \textit{small\_vehicle}
 The percentage matrix (right) normalises these results and shows high accuracy for \textit{small\_vehicle} (85.06\%) and \textit{person} (77.49\%), while \textit{two wheeler} accuracy drops to 68.74\% due to misclassification (30.29\% as \textit{background}). The \textit{background} category also shows considerable confusion with other classes.
 
 These matrices highlight strengths and weaknesses, guiding improvements in preprocessing, model design, and training while enhancing result interpretability—a core focus of this thesis.
-\newpage
+
 
 
